@@ -8,23 +8,37 @@ Just copy the corresponding dotfiles/scripts to the directories in the parenthes
 
 ## Contents ##
 
-* i3-gaps wm (~/.i3/config)
+* i3-Gaps WM (~/.i3/config)
 * Bash Shell (~/.bashrc)
 * Executables (/usr/bin/)
 * Urxv (~/.Xdefaults)
 * Php 
+
+#### i3-Gaps Window Manager ####
+i3 is a Window manager that uses vim key bindings, it is very easy to learn how to customize. Gaps is an extension to i3 to make up a minimalistic look, having gaps between windows making a less cluttered screen.
+
+#### Bash Shell ####
 
 #### Executables ####
 
 * Starting dropbox (sudo dropbox start)
 * Starting ranger 
 * IntelliJ
-* Screenshot tools
-    * All of these need a directory ~/Screenshots/ and files will be named <scriptName>.png, after executing will proceed to open file with eog
+* Screenshot tools: All of these need a directory ~/Screenshots/ and files will be named <scriptName>.png, after executing will proceed to open file with eog
     * ss-select: rectangular selection for a screenshot
     * ss-window: screenshot of focused window
     * ss-workspace: screenshot of current workspace (supports multiple displays)
-### Who do I talk to? ###
+* Mycalendar: opens current year calendar on terminal
+* Extend-right: extends current hdmi output to the right
+* Extend-left: extends current hdmi output to the left
+* Audio-laptop: uses laptop analog-stereo sound card profile as output
+* Audio-hdmi: uses hdmi-stereo sound card profile as output
+#### Urxvt ####
 
-* Repo owner or admin
-* Other community or team contact
+Urxvt is a lightweight and highly customizable terminal emulator.
+
+#### Php ####
+
+### Contact ###
+
+* egarcia87@miners.utep.edu
