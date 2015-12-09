@@ -1,0 +1,2 @@
+scrot -u ~/Screenshots/ss-window.png
+eog ~/Screenshots/ss-window.png
