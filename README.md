@@ -19,7 +19,7 @@ Just copy the corresponding dotfiles/scripts to the directories in the parenthes
 * Contact
 
 #### i3-Gaps Window Manager ####
-i3 is a Window manager that uses vim key bindings, it is very easy to learn how to customize. Gaps is an extension to i3 to make up a minimalistic look, having gaps between windows making a less cluttered screen.
+i3 is a tiling window manager that uses vim key bindings, it is very easy to learn how to customize. Gaps is an extension to i3 to make up a minimalistic look, having gaps between windows making a less cluttered screen.
 
 **Installation** sudo apt-get install i3 (EZ m8)
 
