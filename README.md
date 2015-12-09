@@ -56,7 +56,7 @@ All of these need a directory ~/Screenshots/ and files will be named <scriptName
 
 Urxvt is a lightweight and highly customizable terminal emulator. 
 
-**Installation** sudo apt-get install rxvt-unicode
+**Installation** sudo apt-get install rxvt-unicode (EZ m9)
 
 * Colors
 * Transparency
