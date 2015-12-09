@@ -1,12 +1,14 @@
-# README #
+# My Dotfiles #
 
-This README would normally document whatever steps are necessary to get your application up and running.
+These are the dotfiles needed for restoring or sharing my configurations
 
-### What is this repository for? ###
+### Contents ###
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+* i3-gaps wm (~/.i3/config)
+* Bash Shell (~/.bashrc)
+* Executables (/usr/bin/)
+* Urxv (~/.Xdefaults)
+* Php 
 
 ### How do I get set up? ###
 
