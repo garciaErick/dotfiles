@@ -1,4 +1,4 @@
-##For Mcrypt:
+###For Mcrypt:
 
 sudo updatedb 
 locate mcrypt.ini
