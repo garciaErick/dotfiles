@@ -19,12 +19,13 @@ These are the dotfiles needed for restoring or sharing my configurations
 * How to run tests
 * Deployment instructions
 
-### Contribution guidelines ###
+#### Executables ####
 
-* Writing tests
-* Code review
-* Other guidelines
-
+* Starting dropbox (sudo dropbox start)
+* Starting ranger 
+* IntelliJ
+* Screenshot tools 
+* afeaew
 ### Who do I talk to? ###
 
 * Repo owner or admin
