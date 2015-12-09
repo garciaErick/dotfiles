@@ -85,7 +85,7 @@ A highly customizable clone of the popular text editor Vi.
 
 * [/r/unixporn](https://www.reddit.com/r/unixporn)
 * [/r/vim](https://www.reddit.com/r/vim)
-* [i3wm] (https://i3wm.org/)
+* [i3wm](https://i3wm.org/)
 * [i3-gaps](https://github.com/Airblader/i3)
 
 ### Contact ###
