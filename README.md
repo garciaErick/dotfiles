@@ -20,7 +20,10 @@ Just copy the corresponding dotfiles/scripts to the directories in the parenthes
 * Starting ranger 
 * IntelliJ
 * Screenshot tools
-    * afeaew
+    * All of these need a directory ~/Screenshots/ and files will be named <scriptName>.png, after executing will proceed to open file with eog
+    * ss-select: rectangular selection for a screenshot
+    * ss-window: screenshot of focused window
+    * ss-workspace: screenshot of current workspace (supports multiple displays)
 ### Who do I talk to? ###
 
 * Repo owner or admin
