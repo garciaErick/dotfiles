@@ -62,7 +62,7 @@ Urxvt is a lightweight and highly customizable terminal emulator.
 * Transparency
 * No borders or scroll bars
 * Clipboard Functionality
-    * Install xclip and copy the perl script http://db.tt/JjlLYd5A to /lib/urxvt/perl/clipboard  
+    * Install xclip and copy the perl script http://db.tt/JjlLYd5A (also in folder) to /lib/urxvt/perl/clipboard  
     `URxvt.keysym.Shift-Control-V: perl:clipboard:paste`  
     `URxvt.iso14755: False`  
     `URxvt.perl-ext-common: default,clipboard`  
