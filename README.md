@@ -1,5 +1,7 @@
 # My Dotfiles #
+
 These are the dotfiles needed for restoring or sharing my configurations
+
 ## How do I get set up? ##
 
 Just copy the corresponding dotfiles/scripts to the directories in the parenthesis 
