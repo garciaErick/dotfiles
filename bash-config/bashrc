@@ -120,3 +120,8 @@ function cd {
 
 alias s='sudo'
 alias ..='cd ..'
+#Base16 Shell
+BASE16_SHELL="$HOME/./dotfiles/shell_vimColors/vim-hybrid-material-master/base16-material/base16-material.dark.sh"
+#BASE16_SHELL="$HOME/./Downloads/base16-shell-master/base16-railcasts.dark.sh"
+[[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
+
