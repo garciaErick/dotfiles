@@ -31,7 +31,8 @@ i3 is a tiling window manager that uses vim key bindings, it is very easy to lea
 #### Bash Shell ####
 
 This is the dot file for bash shell, in here you can add extra functions, paths, or add aliases.
-
+Using Material Theme in .bashrc to inherit to vim  
+path: BASE16_SHELL="$HOME/./dotfiles/shell_vimColors/vim-hybrid-material-master/base16-material/base16-material.dark.sh
 * Every time the cd command is used, it is followed by a ls
 * Alias s = 'sudo' 
 * Alias .. = 'cd' 
