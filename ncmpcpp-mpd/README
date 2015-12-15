@@ -1,0 +1,9 @@
+Source: http://www.linuxandlife.com/2012/01/simple-guide-to-set-up-mpd-with-ncmpcpp.html
+sudo apt-get install mpd mpc ncmpcpp
+mkdir .mpd
+mkdir -p ~/.mpd/playlists
+touch ~/.mpd/{mpd.db,mpd.log,mpd.pid,mpdstate}
+vim ~/.mpd/mpd.conf
+
+music_directory "/your/music/folder" playlist_directory "/home/username/.mpd/playlists" db_file "/home/username/.mpd/mpd.db" log_file "/home/username/.mpd/mpd.log" pid_file "/home/username/.mpd/mpd.pid" state_file "/home/username/.mpd/mpdstate" audio_output { type "pulse" name "whatever name you want" } - See more at: http://www.linuxandlife.com/2012/01/simple-guide-to-set-up-mpd-with-ncmpcpp.html#sthash.zuMQNGsv.dpuf
+#!/bin/bash mpd terminator -e ncmpcpp
