@@ -1,1 +1,3 @@
+pkill mpd
+mpd
 urxvt -hold -e ncmpcpp
