@@ -92,11 +92,12 @@ let g:startify_custom_header = [
       \'     ██▓▓████▓▓▓█',
       \'  ██▓▓▓▓▓▓████▓▓█',
       \'██▓▓▓▓▓▓███░░███░',
-      \'   ██░░░░░░███████',
+      \'   ██░░░░░░███████         Vim is my favorite text editor, ',
       \'     ██░░░░███████',
-      \'       ██████████',
-      \'      ██▓▓▓▓▓▓▓▓▓██',
-      \'      █████████████',
+      \'       ██████████ █     I have been using vim for 2 years now  ',
+      \'      ██▓▓▓▓▓▓▓▓▓█',
+      \'      █████████████  mostly because I cant figure out how to exit',
+      \''
       \ ]
 
 
