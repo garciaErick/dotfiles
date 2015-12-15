@@ -11,6 +11,7 @@ Plugin 'bling/vim-airline'
 Plugin 'scrooloose/nerdTree' 
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-commentary'
 call vundle#end()            " required
 
 " ================ General Config ====================
