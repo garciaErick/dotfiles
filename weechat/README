@@ -48,8 +48,15 @@ account facebook set mark_read false
 /set weechat.bar.title.color_fg *31
 /set weechat.bar.title.color_bg 233
 
-
-
+## Hotkeys
+/key bind meta-c /CLOSE
+/key bind meta-n /input jump_smart #Go to the latest buffer in the hot list 
+/key bind meta-u /buffer -1
+/key bind meta-i /buffer +1
+/key bind meta-s /window splitv
+/key bind meta-m /window merge
+/key bind meta-o /window +1
+/key bind meta-p /window -1
 
 ## My rootstatus
 /bar add status root bottom 1 0 buffer_number+:+buffer_name+(buffer_modes)+{buffer_nickiist_count}+buffer_filter,[bitlbee_typing_notice],[iag]i[aspell_suggest],[hotlist]
@@ -68,3 +75,7 @@ My settings
 /set weechat.bar.input.separator on
 /set weechat.bar.nicklist.size_max 15
 /set weechat.bar.buffers.size_max 6
+/set weechat.look.key_bind_safe off
+
+/set weechat.look.key_bind_safe off
+
