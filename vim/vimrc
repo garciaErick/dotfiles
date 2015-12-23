@@ -1,20 +1,29 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
-
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
-Plugin 'mhinz/vim-startify'
-Plugin 'bling/vim-airline'
-Plugin 'scrooloose/nerdTree' 
-Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-commentary'
+Plugin 'mhinz/vim-startify' "Startup screen for vim 
+Plugin 'bling/vim-airline' "Eye-candy for vim status
+Plugin 'scrooloose/syntastic' "Syntax Cheking
+Plugin 'scrooloose/nerdTree' "IDE-like file manager
+Plugin 'ctrlpvim/ctrlp.vim' "IntelliJ-like file searching
+Plugin 'tpope/vim-surround' "Surround with characters with cs command
+Plugin 'tpope/vim-commentary' "Comment plugin by gcc command
+Plugin 'terryma/vim-multiple-cursors' "Sublime text-like multiple cursors
+Plugin 'Valloric/YouCompleteMe' "Autocomplete as you type
+" Vim Snipmate Dependencies
+Plugin 'vim-addon-mw-utils'
+Plugin 'tomtom/tlib_vim'
+Plugin 'honza/vim-snippets'
+Plugin 'garbas/vim-snipmate' 
 call vundle#end()            " required
 
 " ================ General Config ====================
+let vimDir = '$HOME/.vim'
+let &runtimepath.=','.vimDir
 set background=dark
 set backspace=indent,eol,start
 set gcr=a:blinkon0
@@ -23,12 +32,18 @@ set hidden
 set number
 set autoread 
 set visualbell
-colorscheme base16-material-dark
 set t_Co=256
+set pastetoggle=<F2> "To enter paste mode to avoid indent issues
+colorscheme base16-material-dark
 let base16colorspace=256  " Access colors present in 256 colorspace
 syntax enable
 syntax on
 let g:enable_bold_font=1
+" Highlighting
+hi Search cterm=bold,underline ctermfg=blue ctermbg=black
+"hi Comment cterm=none ctermfg=blue ctermbg=black
+" <Ctrl-l> redraws the screen and removes any search highlighting.
+nnoremap <silent> <C-l> :nohl<CR><C-l>
 
 " ================ Turn Off Swap Files ==============
 set noswapfile
@@ -37,11 +52,13 @@ set nowb
 
 " ================ Persistent Undo ==================
 " Keep undo history across sessions, by storing in file.
-" Only works all the time.
-if has('persistent_undo') && !isdirectory(expand('~').'/.vim/backups')
-  silent !mkdir ~/.vim/backups > /dev/null 2>&1
-  set undodir=~/.vim/backups
-  set undofile
+if has('persistent_undo')
+    let myUndoDir = expand(vimDir . '/undodir')
+    " Create dirs
+    call system('mkdir ' . vimDir)
+    call system('mkdir ' . myUndoDir)
+    let &undodir = myUndoDir
+    set undofile
 endif
 
 " ================ Indentation ======================
@@ -57,6 +74,11 @@ nnoremap p p=`]<C-o>
 nnoremap P P=`]<C-o>
 filetype plugin on
 filetype indent on
+" Turn off auto insert comments
+augroup auto_comment
+  au!
+  au FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+augroup END
 " Display tabs and trailing spaces visually
 set list listchars=tab:\ \ ,trail:·
 set nowrap       "Don't wrap lines
@@ -101,7 +123,6 @@ let g:startify_custom_header = [
       \''
       \ ]
 
-
 " ================ Airline ====================
 set laststatus=2
 let g:airline_powerline_fonts=1
@@ -125,3 +146,12 @@ autocmd StdinReadPre * let s:std_in=1
 "autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 map <C-n> :NERDTreeToggle<CR>
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+" ================ Syntastic ====================
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0

@@ -2,12 +2,17 @@ urxvt*foreground: white
 urxvt*background: black
 urxvt*transparent: true
 urxvt*shading: 15
-urxvt*font:             xft:Bitstream Vera Sans Mono:pixelsize=14
 URxvt*urlLauncher:      /opt/google/chrome/chrome 
 URxvt*scrollBar:        false
 URxvt*scrollBar_right:        true
 URxvt*scrollColor:        #000000
 
+URxvt*font: xft:Inconsolata for Powerline:regular:pixelsize=16
+Xft.dpi:                    96
+Xft.antialias:              true
+Xft.rgba:                   rgb
+Xft.hinting:                true
+Xft.hintstyle:              hintslight
 
 ! This is the clipboard section
 ! Install xclip and copy the perl script http://db.tt/JjlLYd5A to /usr/lib/urxvt/perl/clipboard
