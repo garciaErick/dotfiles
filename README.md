@@ -76,6 +76,9 @@ Urxvt is a lightweight and highly customizable terminal emulator.
 
 A highly customizable clone of the popular text editor Vi.
 
+* Location of color scheme: .vim/colors/
+* location of plugins: .vim/bundle/
+
 #### Extras ####
 
 * Changing Capslock to work as Esc key for better ergonomics and effectiveness  

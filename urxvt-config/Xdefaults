@@ -14,8 +14,9 @@ Xft.rgba:                   rgb
 Xft.hinting:                true
 Xft.hintstyle:              hintslight
 
-! This is the clipboard section
-! Install xclip and copy the perl script http://db.tt/JjlLYd5A to /usr/lib/urxvt/perl/clipboard
+!============ Clipboard ===================
+! sudo apt-get install xclip 
+! Copy the perl script http://db.tt/JjlLYd5A to /usr/lib/urxvt/perl/clipboard
 URxvt.keysym.Shift-Control-V: perl:clipboard:paste
 URxvt.iso14755: False
 URxvt.perl-ext-common: default,clipboard
