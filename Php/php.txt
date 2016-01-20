@@ -1,5 +1,5 @@
 ##For Mcrypt:
-
+Install php5 and php5-mcrypt
 sudo updatedb 
 locate mcrypt.ini
 Should show it located at /etc/php5/mods-available
