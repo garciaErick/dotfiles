@@ -1,24 +1,28 @@
-set nocompatible              " be iMproved, required
-filetype off                  " required
+set      nocompatible                   " be iMproved, required
+filetype off                            " required
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 " let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'mhinz/vim-startify' "Startup screen for vim 
-Plugin 'bling/vim-airline' "Eye-candy for vim status
-Plugin 'scrooloose/syntastic' "Syntax Cheking
-Plugin 'scrooloose/nerdTree' "IDE-like file manager
-Plugin 'ctrlpvim/ctrlp.vim' "IntelliJ-like file searching
-Plugin 'tpope/vim-surround' "Surround with characters with cs command
-Plugin 'tpope/vim-commentary' "Comment plugin by gcc command
+Plugin 'VundleVim/Vundle.vim'         "Easy way to install plugins
+Plugin 'mhinz/vim-startify'           "Startup screen for vim
+Plugin 'bling/vim-airline'            "Eye-candy for vim status
+Plugin 'scrooloose/syntastic'         "Syntax Cheking
+Plugin 'scrooloose/nerdTree'          "IDE-like file manager
+" Plugin 'tpope/vim-vinegar/'           "Better built in directory browser
+Plugin 'ctrlpvim/ctrlp.vim'           "IntelliJ-like file searching
+Plugin 'junegunn/vim-easy-align'      "Aligning using regular expressions
+Plugin 'tpope/vim-surround'           "Surround with characters with cs command
+Plugin 'tpope/vim-commentary'         "Comment plugin by gcc command
+Plugin 'tpope/vim-fugitive'           "Git wrapper for vim
+Plugin 'jiangmiao/auto-pairs'         "Auto closing brackets
 Plugin 'terryma/vim-multiple-cursors' "Sublime text-like multiple cursors
-Plugin 'Valloric/YouCompleteMe' "Autocomplete as you type
+Plugin 'Valloric/YouCompleteMe'       "Autocomplete as you type
 " Vim Snipmate Dependencies
 Plugin 'vim-addon-mw-utils'
 Plugin 'tomtom/tlib_vim'
 Plugin 'honza/vim-snippets'
-Plugin 'garbas/vim-snipmate' 
+Plugin 'garbas/vim-snipmate' "End Snipmate Dependencies
 call vundle#end()            " required
 
 " ================ General Config ====================
@@ -44,6 +48,12 @@ hi Search cterm=bold,underline ctermfg=blue ctermbg=black
 "hi Comment cterm=none ctermfg=blue ctermbg=black
 " <Ctrl-l> redraws the screen and removes any search highlighting.
 nnoremap <silent> <C-l> :nohl<CR><C-l>
+nnoremap <c-t> /[A-Z]<return>
+nnoremap <silent><C-Left> :<C-u>call search('\<\<Bar>\U\@<=\u\<Bar>\u\ze\%(\U\&\>\@!\)\<Bar>\%^','bW')<CR>
+nnoremap <silent><C-Right> :<C-u>call search('\<\<Bar>\U\@<=\u\<Bar>\u\ze\%(\U\&\>\@!\)\<Bar>\%$','W')<CR>
+inoremap <silent><C-Left> <C-o>:call search('\<\<Bar>\U\@<=\u\<Bar>\u\ze\%(\U\&\>\@!\)\<Bar>\%^','bW')<CR>
+inoremap <silent><C-Right> <C-o>:call search('\<\<Bar>\U\@<=\u\<Bar>\u\ze\%(\U\&\>\@!\)\<Bar>\%$','W')<CR>
+set mouse=a
 
 " ================ Turn Off Swap Files ==============
 set noswapfile
@@ -155,3 +165,21 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+
+" ================ Easy Align ========================
+xmap ga <Plug>(EasyAlign)
+nmap ga <Plug>(EasyAlign)
+" *|
+" <Enter>*|
+" <Enter>**|
+" <Enter><Enter>*|
+" |   Option   |  Type   | Default |                  Description                   |
+" |     --     |   --    |   --    |                       --                       |
+" |  threads   | Fixnum  |    1    |      number of threads in the thread pool      |
+" |   queues   | Fixnum  |    1    |          number of concurrent queues           |
+" | queue_size | Fixnum  |  1000   |               size of each queue               |
+" |  interval  | Numeric |    0    |    dispatcher interval for batch processing    |
+" |   batch    | Boolean |  false  |         enables batch processing mode          |
+" | batch_size | Fixnum  |   nil   | number of maximum items to be assigned at once |
+" |   logger   | Logger  |   nil   |         logger instance for debug logs         |
+
