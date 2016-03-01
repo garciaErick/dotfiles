@@ -3,8 +3,7 @@ filetype off                  " required
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
+" let Vundle manage Vundle, required Plugin 'VundleVim/Vundle.vim' 
 Plugin 'mhinz/vim-startify'           "Startup screen for vim
 Plugin 'bling/vim-airline'            "Eye-candy for vim status
 Plugin 'scrooloose/syntastic'         "Syntax Cheking
@@ -29,6 +28,9 @@ call vundle#end()            " required
 " ================ General Config ====================
 let vimDir = '$HOME/.vim'
 let &runtimepath.=','.vimDir
+set wrap
+set linebreak
+set textwidth=60
 set background=dark
 set backspace=indent,eol,start
 set gcr=a:blinkon0
@@ -39,6 +41,7 @@ set autoread
 set visualbell
 set t_Co=256
 set pastetoggle=<F2> "To enter paste mode to avoid indent issues
+set clipboard=unnamedplus
 colorscheme base16-material-dark
 let base16colorspace=256  " Access colors present in 256 colorspace
 syntax enable
@@ -46,10 +49,30 @@ syntax on
 let g:enable_bold_font=1
 " Highlighting
 hi Search cterm=bold,underline ctermfg=blue ctermbg=black
-"hi Comment cterm=none ctermfg=blue ctermbg=black
+hi Comment cterm=none ctermfg=DarkMagenta ctermbg=black
+" *cterm-colors*
+" NR-16   NR-8    COLOR NAME 
+" 0       0       Black
+" 1       4       DarkBlue
+" 2       2       DarkGreen
+" 3       6       DarkCyan
+" 4       1       DarkRed
+" 5       5       DarkMagenta
+" 6       3       Brown, DarkYellow
+" 7       7       LightGray, LightGrey, Gray, Grey
+" 8       0*      DarkGray, DarkGrey
+" 9       4*      Blue, LightBlue
+" 10      2*      Green, LightGreen
+" 11      6*      Cyan, LightCyan
+" 12      1*      Red, LightRed
+" 13      5*      Magenta, LightMagenta
+" 14      3*      Yellow, LightYellow
+" 15      7*      White
 " <Ctrl-l> redraws the screen and removes any search highlighting.
 nnoremap <silent> <C-l> :nohl<CR><C-l>
 set mouse=a
+"Force to save files that require root permissions
+cmap w!! %!sudo tee > /dev/null % "
 
 " ================ Turn Off Swap Files ==============
 set noswapfile
@@ -69,6 +92,7 @@ endif
 
 " ================ Indentation ======================
 set autoindent
+set cindent
 set smartindent
 set smarttab
 set shiftwidth=2
@@ -87,7 +111,7 @@ augroup auto_comment
 augroup END
 " Display tabs and trailing spaces visually
 set list listchars=tab:\ \ ,trail:·
-set nowrap       "Don't wrap lines
+" set nowrap       "Don't wrap lines
 set linebreak    "Wrap lines at convenient points
 
 " ================ Folds ============================
@@ -175,4 +199,30 @@ let g:notes_directories = [
 let g:notes_title_sync = 'change_title'
 let g:notes_title_sync = 'rename_file'
 let g:notes_smart_quotes = 1
-let g:notes_ruler_text = ' ——————————————————————————————————————————————————————— '
+let g:notes_ruler_text = ' ———————————————————————————————————————————————————————'
+
+" ================ YouCompleteMe ====================
+let g:ycm_global_ycm_extra_conf = "/home/egarcia87/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py"
+
+" ================ Dvorak ====================
+runtime! macros/dvorak.vim
+
+" ================ Functions ====================
+function! MakeAndRun()
+        silent make %:r
+        redraw!
+        if len(getqflist()) == 1
+          !./%:r
+        else
+          for i in getqflist()
+            if i['valid']
+                 cwin
+                 winc p
+                 return
+            endif
+          endfor
+        endif
+endfunction
+nmap <F5> :call MakeAndRun()<cr>
+nmap <F7> :tabp
+nmap <F8> :tabn
