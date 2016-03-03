@@ -18,17 +18,19 @@ Plugin 'junegunn/vim-easy-align'      "Alignnent plugin with <ga>
 Plugin 'jiangmiao/auto-pairs'         "Auto-closing brackets plugin
 Plugin 'xolox/vim-notes'              "Note taking in vim
 Plugin 'xolox/vim-misc'               "Xolox plugins dependencies
+" Snippets Section
 " Vim Snipmate Dependencies
-Plugin 'vim-addon-mw-utils'
-Plugin 'tomtom/tlib_vim'
-Plugin 'honza/vim-snippets'
-Plugin 'garbas/vim-snipmate' 
+" Plugin 'MarcWeber/vim-addon-mw-utils'
+" Plugin 'tomtom/tlib_vim'
+" Plugin 'garbas/vim-snipmate' 
+Plugin 'SirVer/ultisnips'             "Snippets engine
+Plugin 'ervandew/supertab'            "For YCM and Ultisnips integration
+Plugin 'honza/vim-snippets'           "Collection of vim snippets
 call vundle#end()            " required
 
 " ================ General Config ====================
 let vimDir = '$HOME/.vim'
 let &runtimepath.=','.vimDir
-set wrap
 set linebreak
 set textwidth=60
 set background=dark
@@ -112,6 +114,7 @@ augroup END
 " Display tabs and trailing spaces visually
 set list listchars=tab:\ \ ,trail:·
 " set nowrap       "Don't wrap lines
+set wrap
 set linebreak    "Wrap lines at convenient points
 
 " ================ Folds ============================
@@ -202,7 +205,19 @@ let g:notes_smart_quotes = 1
 let g:notes_ruler_text = ' ———————————————————————————————————————————————————————'
 
 " ================ YouCompleteMe ====================
+let g:ycm_key_list_select_completion   = ['<C-j>', '<C-n>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-k>', '<C-p>', '<Up>']
 let g:ycm_global_ycm_extra_conf = "/home/egarcia87/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py"
+let g:EclimCompletionMethod = 'omnifunc'
+
+" ================ SuperTab ====================
+let g:SuperTabDefaultCompletionType    = '<C-n>'
+let g:SuperTabCrMapping                = 0
+
+" ================ Ultisnips ====================
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
 " ================ Dvorak ====================
 runtime! macros/dvorak.vim
@@ -224,5 +239,5 @@ function! MakeAndRun()
         endif
 endfunction
 nmap <F5> :call MakeAndRun()<cr>
-nmap <F7> :tabp
-nmap <F8> :tabn
+nmap <F7> :tabp <cr>
+nmap <F8> :tabn <cr>
