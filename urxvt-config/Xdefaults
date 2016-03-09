@@ -7,16 +7,16 @@ URxvt*scrollBar:        false
 URxvt*scrollBar_right:        true
 URxvt*scrollColor:        #000000
 
-URxvt*font: xft:Inconsolata for Powerline:regular:pixelsize=16
+/* URxvt*font: xft:Inconsolata for Powerline:regular:pixelsize=16 */
+URxvt*font  : -*-tamzenforpowerline-medium-*-*-*-17-*-*-*-*-*-*-*
 Xft.dpi:                    96
 Xft.antialias:              true
 Xft.rgba:                   rgb
 Xft.hinting:                true
 Xft.hintstyle:              hintslight
 
-!============ Clipboard ===================
-! sudo apt-get install xclip 
-! Copy the perl script http://db.tt/JjlLYd5A to /usr/lib/urxvt/perl/clipboard
+! This is the clipboard section
+! Install xclip and copy the perl script http://db.tt/JjlLYd5A to /usr/lib/urxvt/perl/clipboard
 URxvt.keysym.Shift-Control-V: perl:clipboard:paste
 URxvt.iso14755: False
 URxvt.perl-ext-common: default,clipboard
