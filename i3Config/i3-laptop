@@ -17,6 +17,8 @@ exec --no-startup-id capslock-to-escape
 exec --no-startup-id naturalscrolling
 exec --no-startup-id fluxgui
 exec --no-startup-id extend-left
+exec --no-startup-id indicator-sound-switcher
+exec --no-startup-id tamzen-font
 
 #================ Startup Programs ================#
 
