@@ -254,3 +254,7 @@ endfunction
 nmap <F5> :call MakeAndRun()<cr>
 nmap <F7> :tabp <cr>
 nmap <F8> :tabn <cr>
+
+" ================ Java ====================
+nmap <F3> :JavaSearchContext <cr>
+let g:EclimJavaSearchSingleResult = 'tabnew' 
