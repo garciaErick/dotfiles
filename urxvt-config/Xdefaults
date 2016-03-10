@@ -1,45 +1,48 @@
-urxvt*foreground: white
-urxvt*background: black
-urxvt*transparent: true
-urxvt*shading: 15
-URxvt*urlLauncher:      /opt/google/chrome/chrome 
-URxvt*scrollBar:        false
-URxvt*scrollBar_right:        true
-URxvt*scrollColor:        #000000
+urxvt*foreground:      white
+urxvt*background:      black
+urxvt*transparent:     true
+urxvt*shading:         15
+URxvt*urlLauncher:     /opt/google/chrome/chrome
+URxvt*scrollBar:       false
+URxvt*scrollBar_right: true
+URxvt*scrollColor:     #000000
+Xft.dpi:               96
+Xft.antialias:         true
+Xft.rgba:              rgb
+Xft.hinting:           true
+Xft.hintstyle:         hintslight
+Xft*dpi:               96
+Xft*antialias:         true
+Xft*hinting:           full
 
-URxvt*font: xft:Inconsolata for Powerline:regular:pixelsize=16
-Xft.dpi:                    96
-Xft.antialias:              true
-Xft.rgba:                   rgb
-Xft.hinting:                true
-Xft.hintstyle:              hintslight
+/* URxvt*font: xft:Inconsolata for Powerline:regular:pixelsize=16 */
+URxvt*font  : -*-tamzenforpowerline-medium-*-*-*-17-*-*-*-*-*-*-*
 
-!============ Clipboard ===================
-! sudo apt-get install xclip 
-! Copy the perl script http://db.tt/JjlLYd5A to /usr/lib/urxvt/perl/clipboard
+! Install extension and copy the perl script http://db.tt/JjlLYd5A to /usr/lib/urxvt/perl/extension_name
+URxvt.perl-ext-common: default,clipboard,tabbed,matcher,keyboard-select
+
+! Matcher
+/* URxvt.url-launcher: /usr/bin/firefox */
+URxvt.matcher.button: 1
+
+! This is the clipboard section
 URxvt.keysym.Shift-Control-V: perl:clipboard:paste
 URxvt.iso14755: False
-URxvt.perl-ext-common: default,clipboard
-! Finishing clipboard section
-Xft*dpi:                96
-Xft*antialias:          true
-Xft*hinting:            full
 
-*color0:  #1D1F21
-*color1:  #CC6666
-*color2:  #B5BD68
-*color3:  #F0C674
-*color4:  #81A2BE
-*color5:  #B294BB
-*color6:  #8ABEB7
-*color7:  #C5C8C6
-*color8:  #969896
-*color9:  #EF2929
-*color10: #8AE234
-*color11: #FCE94F
-*color12: #729FCF
-*color13: #AD7FA8
-*color14: #fcaf3e
-*color15: #EEEEEC
+! Dynamic Resizing
+/* URxvt.keysym.C-Up:     perl:font-size:increase */
+/* URxvt.keysym.C-Down:   perl:font-size:decrease */
+/* URxvt.keysym.C-S-Up:   perl:font-size:incglobal */
+/* URxvt.keysym.C-S-Down: perl:font-size:decglobal */
 
+! Tabs
+URxvt.tabbed.tabbar-fg: 0
+URxvt.tabbed.tabbar-bg: 0
+URxvt.tabbed.tab-fg: 0
+URxvt.tabbed.tab-bg: 0
 
+! Keyboard select
+URxvt.keysym.M-Escape: perl:keyboard-select:activate
+
+! Url select
+URxvt.keysym.M-u: perl:url-select:select_next

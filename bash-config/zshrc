@@ -37,6 +37,9 @@ alias i3statusconf="vim ~/.i3/i3status.conf"
 alias i3blocksconf="vim ~/.i3blocks.conf"
 alias explorer="nautilus -s pwd &"
 alias xdg-open="xdg-open 2>/dev/null"
+alias lab02="cd ~/source_code/egarcia_lab2"
+alias eclim="~/./executables/eclipse/eclimd"
+
 
 # LS_COLORS='di=1:fi=0:ln=31:pi=5:so=5:bd=5:cd=5:or=31:mi=0:ex=35:*.rpm=90'
 # export LS_COLORS
@@ -51,12 +54,12 @@ up(){
   local d=""
   limit=$1
   for ((i=1 ; i <= limit ; i++))
-    do
-      d=$d/..
-    done
+	do
+	  d=$d/..
+	done
   d=$(echo $d | sed 's/^\///')
   if [ -z "$d" ]; then
-    d=..
+	d=..
   fi
   cd $d
 }
@@ -65,17 +68,17 @@ up(){
 extract () {
    if [ -f $1 ] ; then
 	   case $1 in
-       *.tar.bz2)   tar xvjf   $1	&& echo "Successfully extracted '$1'." ;;
-       *.tar.gz)	  tar xvzf   $1 && echo "Successfully extracted '$1'." ;;
-       *.tar)	      tar xvf    $1 && echo "Successfully extracted '$1'." ;;
-       *.tbz2)	    tar xvjf   $1	&& echo "Successfully extracted '$1'." ;;
-       *.tgz)	      tar xvzf   $1	&& echo "Successfully extracted '$1'." ;;
-       *.bz2)	      bunzip2    $1 && echo "Successfully extracted '$1'." ;;
-       *.rar)	      unrar x    $1 && echo "Successfully extracted '$1'." ;;
-       *.gz)		    gunzip     $1 && echo "Successfully extracted '$1'." ;;
-       *.zip)	      unzip      $1 && echo "Successfully extracted '$1'." ;;
-       *.Z)		      uncompress $1 && echo "Successfully extracted '$1'." ;;
-       *.7z)		    7z x       $1 && echo "Successfully extracted '$1'." ;;
+	   *.tar.bz2)   tar xvjf   $1	&& echo "Successfully extracted '$1'." ;;
+	   *.tar.gz)	  tar xvzf   $1 && echo "Successfully extracted '$1'." ;;
+	   *.tar)		  tar xvf	     $1 && echo "Successfully extracted '$1'." ;;
+	   *.tbz2)		tar xvjf     $1	&& echo "Successfully extracted '$1'." ;;
+	   *.tgz)		  tar xvzf     $1	&& echo "Successfully extracted '$1'." ;;
+	   *.bz2)		  bunzip2	     $1 && echo "Successfully extracted '$1'." ;;
+	   *.rar)		  unrar x	     $1 && echo "Successfully extracted '$1'." ;;
+	   *.gz)			gunzip	     $1 && echo "Successfully extracted '$1'." ;;
+	   *.zip)		  unzip	       $1 && echo "Successfully extracted '$1'." ;;
+	   *.Z)			  uncompress   $1 && echo "Successfully extracted '$1'." ;;
+	   *.7z)			7z x	       $1 && echo "Successfully extracted '$1'." ;;
 		   *)echo "don't know how to extract '$1'..." ;;
 	   esac
    else
@@ -83,10 +86,43 @@ extract () {
    fi
  }
 
- open () {
+open () {
    if [ -f $1 ] ; then
-       xdg-open $1;
+	   xdg-open $1;
    else
-     echo "'$1' is not a valid file!"
+	 echo "'$1' is not a valid file!"
    fi
+}
+
+function countdown(){
+  date1=$((`date +%s` + $1)); 
+  echo $1;
+  while [ "$date1" -ge `date +%s` ]; do 
+	  echo -ne "$(date -u --date @$(($date1 - `date +%s`)) +%H:%M:%S)\r";
+	  sleep 0.1
+  done
+  notify-send --expire-time=2000 -i face-wink "Done !!!" "Drink some water and stay focused !!!"
+  spd-say -i -50 "Erick, you are the MVP Dark Lord Master"
+}
+
+function infinite_countdown(){
+while :; do countdown $(($1*60)); sleep 1; done
+}
+
+
+function stopwatch(){
+  date1=`date +%s`; 
+    while true; do 
+	echo -ne "$(date -u --date @$((`date +%s` - $date1)) +%H:%M:%S)\r"; 
+	sleep 0.1
+  done
+}
+
+function newp() {
+   mkdir -p "$@" && cd "$@"
+   gradle setupBuild --type java-library
+   perl -i -lne 'print $_;print "apply plugin: \x27eclipse\x27" if(/apply/);' build.gradle
+   gradle eclipse
+   rm -fr src/main/java/Library.java
+   rm -fr src/test/java/LibraryTest.java
  }

@@ -10,18 +10,25 @@ exec --no-startup-id feh --randomize --bg-fill ~/Desktop\ Wallpapers/*
 exec --no-startup-id gnome-sound-applet
 exec --no-startup-id pulseaudio-equalizer
 exec --no-startup-id master-race-dual-display 
-exec --no-startpu-id capslock-to-escape
+exec --no-startup-id capslock-to-escape
+exec --no-startup-id xmodmap -e "clear lock"
+exec --no-startup-id mod4-to-ctrl
+exec --no-startup-id fluxgui
+exec --no-startup-id tamzen-font
+exec --no-startup-id indicator-sound-switcher
+# exec --no-startup-id feh --randomize --bg-fill ~/Dropbox/monogatari*
+# exec --no-startup-id feh --randomize --bg-fill ~/Dropbox/desktop wallpapers/boWRiO0.jpg
 
 #================ General Config ================#
 #Setting Mod to Alt(Mod1) or Win(Mod4)
 set $mod Mod1 
-font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1 #i3font
+font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1 
 floating_modifier $mod
 
 #================ Basic Movement ================#
-bindsym $mod+Return  exec urxvt #Terminal URxvt
+bindsym $mod+Return  exec urxvt -e /bin/zsh
 bindsym $mod+Shift+q kill
-bindsym $mod+d exec  dmenu_run #Menu
+bindsym $mod+d exec  dmenu_run
 ## change focus
 bindsym $mod+j         focus left
 bindsym $mod+k         focus down
@@ -37,15 +44,15 @@ bindsym $mod+Shift+Left  move left
 bindsym $mod+Shift+Down  move down
 bindsym $mod+Shift+Up    move up
 bindsym $mod+Shift+Right move right
-bindsym $mod+h split h #Horizontal
-bindsym $mod+v split v #Vertical
+bindsym $mod+h split h
+bindsym $mod+v split v
 bindsym $mod+f fullscreen
 ## change container layout (stacked, tabbed, toggle split)
-bindsym $mod+w layout tabbed #Tab Windows
-bindsym $mod+e layout toggle split #Split Windows
-bindsym $mod+Shift+space floating toggle #Floating Windows
-bindsym $mod+space focus mode_toggle #Tiling/Floating
-bindsym $mod+a focus parent # focus the parent container
+#bindsym $mod+w layout tabbed
+#bindsym $mod+e layout toggle split
+#bindsym $mod+Shift+space floating toggle
+#bindsym $mod+space focus mode_toggle
+#bindsym $mod+a focus parent
 
 #================ Basic Movement ================#
 ## switch to workspace
@@ -70,16 +77,15 @@ bindsym $mod+Shift+7 move container to workspace 7
 bindsym $mod+Shift+8 move container to workspace 8
 bindsym $mod+Shift+9 move container to workspace 9
 bindsym $mod+Shift+0 move container to workspace 10
+## Scratchpad (Temporary and hidden workspace) 
+bindsym $mod+m move scratchpad
+bindsym $mod+o scratchpad show
 
 #================ Custom Actions================#
-## Lock Screen
-bindsym $mod+Shift+o exec i3lock -i ~/Dropbox/monogatari/*.png -t
-bindsym $mod+Shift+c reload # reload the configuration file
-bindsym $mod+Shift+r restart # Restart i3
-bindsym $mod+Shift+e exec i3-exit #Exit i3
-## Screenshots
-bindsym Print  exec scrot -e 'mv $f ~/Images/screenshots.png'
-bindsym $mod+s exec scrot -s -e 'mv $f ~/Images/screenshots12'
+bindsym $mod+Shift+o exec i3lock -i ~/Dropbox/monogatari/*.png -t 
+bindsym $mod+Shift+c reload 
+bindsym $mod+Shift+r restart 
+bindsym $mod+Shift+e exec i3-exit 
 
 #================ Modes ================#
 bindsym $mod+r mode "resize"
