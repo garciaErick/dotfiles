@@ -1,128 +1,48 @@
-export ZSH=$HOME/.oh-my-zsh
+export ZSH=/home/garciaErick/.oh-my-zsh
+DEFAULT_USER=$USER
+
+# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="agnoster"
-# ZSH_THEME="random"
-# CASE_SENSITIVE="true"
-# DISABLE_LS_COLORS="true"
-# ENABLE_CORRECTION="true"
-COMPLETION_WAITING_DOTS="true"
-# Plugins can be found in ~/.oh-my-zsh/plugins/*
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git)
-export PATH=$HOME/bin:/usr/local/bin:$PATH
+
 source $ZSH/oh-my-zsh.sh
 
-#==================== Custom Config ==================== export DEFAULT_USER="egarcia87"
-[[ -n "$SSH_CLIENT"  ]] || export DEFAULT_USER="egarcia87"
-#Vim Theme
-BASE16_SHELL="$HOME/./dotfiles/shell_vimColors/vim-hybrid-material-master/base16-material/base16-material.dark.sh"
-[[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
+BASE16_SHELL="$HOME/.config/base16-shell/base16-material.dark.sh"
+[[ -s $BASE16_SHELL  ]] && source $BASE16_SHELL
 
-##==================== Aliases ====================
-alias s='sudo'
-alias :w='echo This is not vim;'
-alias :q='echo This is not vim;'
-alias notes='cd ~/Dropbox/SPRING2016/notes && vim .'
-alias elseweb='cd ../../var/www/html/elseweb-water'
-alias i3conf='vim ~/.i3/config'
-alias vimrc='vim ~/.vimrc'
-alias zshrc='vim ~/.zshrc'
-alias urxvtrc='vim ~/.Xdefaults'
-alias ohmyzsh="vim ~/.oh-my-zsh"
-alias spring="cd ~/Dropbox/SPRING2016"
-alias ci="cd ~/Dropbox/SPRING2016/Cyber_Infrastructure"
-alias os="cd ~/Dropbox/SPRING2016/os"
-alias sre="cd ~/Dropbox/SPRING2016/sre"
-alias i3statusconf="vim ~/.i3/i3status.conf"
-alias i3blocksconf="vim ~/.i3blocks.conf"
-alias explorer="nautilus -s pwd &"
-alias xdg-open="xdg-open 2>/dev/null"
-alias lab02="cd ~/source_code/egarcia_lab2"
-alias eclim="~/./executables/eclipse/eclimd"
+alias zshrc="vim ~/.zshrc && . ~/.zshrc"
+alias vimrc="vim ~/.vimrc "
+# alias vimrc="vim ~/.vimrc && . ~/.vimrc"
+alias reloadzshrc='. ~/.zshrc'
 
+#Aliases for Windows native paths
+alias subl='/mnt/c/Program\ Files/Sublime\ Text\ 3/subl.exe'
+alias VSCODE_PATH='/mnt/c/Program\ Files/Microsoft\ VS\ Code/Code.exe'
+alias winpython='/mnt/c/Users/erick/AppData/Local/Programs/Python/Python36/python.exe'
+alias winuic5='/mnt/c/Users/erick/AppData/Local/Programs/Python/Python36/Scripts/pyuic5.exe'
+alias compileUiFile='function compileUiFile(){ winuic5 -o "$1.py" "$1.ui";};compileUiFile'
+alias officeword='/mnt/c/Program\ Files\ \(x86\)/Microsoft\ Office/root/Office16/WINWORD.EXE'
+alias explorer='/mnt/c/Windows/explorer.exe'
+alias pissh='sshpass -p "whiteWolf1!" ssh -o StrictHostKeyChecking=no pi@192.168.1.78'
 
-# LS_COLORS='di=1:fi=0:ln=31:pi=5:so=5:bd=5:cd=5:or=31:mi=0:ex=35:*.rpm=90'
-# export LS_COLORS
-##==================== Functions ====================
-#ls after every cd
-function cd {
-  builtin cd "$@" && ls -F
+#For git log
+alias gitlog='git log --all --color --graph --pretty=format:"%C(yellow)%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" --abbrev-commit'
+
+#Bash aliases
+alias ..='cd ..'
+alias ls='ls -X --color'
+
+# unsetopt BG_NICE
+
+function cd {     
+	builtin cd "$@" && ls -F     
 }
 
-#cd ../ accepts how many directories as a parameter
-up(){
-  local d=""
-  limit=$1
-  for ((i=1 ; i <= limit ; i++))
-	do
-	  d=$d/..
-	done
-  d=$(echo $d | sed 's/^\///')
-  if [ -z "$d" ]; then
-	d=..
-  fi
-  cd $d
+function vscode (){
+	if [ -z "$1" ]; then
+		VSCODE_PATH > /dev/null 2>&1 &
+	else
+		VSCODE_PATH "$1" > /dev/null 2>&1 &
+	fi
 }
 
-#Function to extract files
-extract () {
-   if [ -f $1 ] ; then
-	   case $1 in
-	   *.tar.bz2)   tar xvjf   $1	&& echo "Successfully extracted '$1'." ;;
-	   *.tar.gz)	  tar xvzf   $1 && echo "Successfully extracted '$1'." ;;
-	   *.tar)		  tar xvf	     $1 && echo "Successfully extracted '$1'." ;;
-	   *.tbz2)		tar xvjf     $1	&& echo "Successfully extracted '$1'." ;;
-	   *.tgz)		  tar xvzf     $1	&& echo "Successfully extracted '$1'." ;;
-	   *.bz2)		  bunzip2	     $1 && echo "Successfully extracted '$1'." ;;
-	   *.rar)		  unrar x	     $1 && echo "Successfully extracted '$1'." ;;
-	   *.gz)			gunzip	     $1 && echo "Successfully extracted '$1'." ;;
-	   *.zip)		  unzip	       $1 && echo "Successfully extracted '$1'." ;;
-	   *.Z)			  uncompress   $1 && echo "Successfully extracted '$1'." ;;
-	   *.7z)			7z x	       $1 && echo "Successfully extracted '$1'." ;;
-		   *)echo "don't know how to extract '$1'..." ;;
-	   esac
-   else
-	   echo "'$1' is not a valid file!"
-   fi
- }
-
-open () {
-   if [ -f $1 ] ; then
-	   xdg-open $1;
-   else
-	 echo "'$1' is not a valid file!"
-   fi
-}
-
-function countdown(){
-  date1=$((`date +%s` + $1)); 
-  echo $1;
-  while [ "$date1" -ge `date +%s` ]; do 
-	  echo -ne "$(date -u --date @$(($date1 - `date +%s`)) +%H:%M:%S)\r";
-	  sleep 0.1
-  done
-  notify-send --expire-time=2000 -i face-wink "Done !!!" "Drink some water and stay focused !!!"
-  spd-say -i -50 "Erick, you are the MVP Dark Lord Master"
-}
-
-function infinite_countdown(){
-while :; do countdown $(($1*60)); sleep 1; done
-}
-
-
-function stopwatch(){
-  date1=`date +%s`; 
-    while true; do 
-	echo -ne "$(date -u --date @$((`date +%s` - $date1)) +%H:%M:%S)\r"; 
-	sleep 0.1
-  done
-}
-
-function newp() {
-   mkdir -p "$@" && cd "$@"
-   gradle setupBuild --type java-library
-   perl -i -lne 'print $_;print "apply plugin: \x27eclipse\x27" if(/apply/);' build.gradle
-   gradle eclipse
-   rm -fr src/main/java/Library.java
-   rm -fr src/test/java/LibraryTest.java
- }
+cd
