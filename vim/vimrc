@@ -4,12 +4,14 @@ filetype off                  " required
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 " let Vundle manage Vundle, required Plugin 'VundleVim/Vundle.vim' 
+Plugin 'sheerun/vim-polyglot'
 Plugin 'kristijanhusak/vim-hybrid-material'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'scrooloose/syntastic'         "Syntax Cheking
 Plugin 'scrooloose/nerdTree'          "IDE-like file manager
 Plugin 'ctrlpvim/ctrlp.vim'           "IntelliJ-like file searching
+Plugin 'tpope/vim-sensible'           "Starting point
 Plugin 'tpope/vim-surround'           "Surround with characters with cs command
 Plugin 'tpope/vim-commentary'         "Comment plugin by gcc command
 Plugin 'tpope/vim-markdown'           "Markdown syntax highlighting
@@ -33,45 +35,34 @@ call vundle#end()            " required
 " ================ General Config ====================
 let vimDir = '$HOME/.vim'
 let &runtimepath.=','.vimDir
+let &t_ti.="\e[1 q"
+let &t_SI.="\e[5 q"
+let &t_EI.="\e[1 q"
+let &t_te.="\e[0 q"
+set background=dark
 set linebreak
 set textwidth=60
-set background=dark
 set backspace=indent,eol,start
 set gcr=a:blinkon0
 set noshowmode
 set hidden
 set number
 set autoread 
-set visualbell
+" set visualbell
 set t_Co=256
-set pastetoggle=<F2> "To enter paste mode to avoid indent issues
-set clipboard=unnamedplus
 colorscheme base16-material
-let base16colorspace=256  " Access colors present in 256 colorspace
+let g:enable_bold_font = 1
+let g:enable_italic_font = 1
+autocmd ColorScheme * highlight LineNr ctermfg=grey ctermbg=none
+autocmd ColorScheme * highlight Visual ctermfg=none ctermbg=239
+set pastetoggle=<F2> "To enter paste mode to avoid indent issues
+set clipboard=unnamed
 syntax enable
 syntax on
 let g:enable_bold_font=1
 " Highlighting
 hi Search cterm=bold,underline ctermfg=blue ctermbg=black
-hi Comment cterm=none ctermfg=DarkMagenta ctermbg=black
-" *cterm-colors*
-" NR-16   NR-8    COLOR NAME 
-" 0       0       Black
-" 1       4       DarkBlue
-" 2       2       DarkGreen
-" 3       6       DarkCyan
-" 4       1       DarkRed
-" 5       5       DarkMagenta
-" 6       3       Brown, DarkYellow
-" 7       7       LightGray, LightGrey, Gray, Grey
-" 8       0*      DarkGray, DarkGrey
-" 9       4*      Blue, LightBlue
-" 10      2*      Green, LightGreen
-" 11      6*      Cyan, LightCyan
-" 12      1*      Red, LightRed
-" 13      5*      Magenta, LightMagenta
-" 14      3*      Yellow, LightYellow
-" 15      7*      White
+
 " <Ctrl-l> redraws the screen and removes any search highlighting.
 nnoremap <silent> <C-l> :nohl<CR><C-l>
 set mouse=a
@@ -137,7 +128,7 @@ set smartcase       " ...unless we type a capital
 
 " ================ Airline ====================
 set laststatus=2
-let g:airline_theme='base16'
+let g:airline_theme='deus'
 let g:airline_powerline_fonts=1
 if !exists('g:airline_symbols')
 let g:airline_symbols = {}
@@ -179,12 +170,12 @@ nmap ga <Plug>(EasyAlign)
 "Integrated with SuperTab with Ultisnips
 let g:ycm_key_list_select_completion   = ['<C-j>', '<C-n>', '<Down>']
 let g:ycm_key_list_previous_completion = ['<C-k>', '<C-p>', '<Up>']
-let g:ycm_global_ycm_extra_conf = "/home/egarcia87/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py"
+" let g:ycm_global_ycm_extra_conf = "/home/egarcia87/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py"
 let g:EclimCompletionMethod = 'omnifunc'
 
 " ================ SuperTab ====================
 let g:SuperTabDefaultCompletionType    = '<C-n>'
-let g:SuperTabCrMapping                = 0
+let g:SuperTabCrMapping                = -1
 
 " ================ Ultisnips ====================
 let g:UltiSnipsExpandTrigger="<tab>"
