@@ -8,7 +8,8 @@ Plugin 'sheerun/vim-polyglot'
 Plugin 'kristijanhusak/vim-hybrid-material'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
-Plugin 'scrooloose/syntastic'         "Syntax Cheking
+Plugin 'w0rp/ale' "Syntax Checking
+" Plugin 'scrooloose/syntastic'         "Syntax Cheking
 Plugin 'scrooloose/nerdTree'          "IDE-like file manager
 Plugin 'ctrlpvim/ctrlp.vim'           "IntelliJ-like file searching
 Plugin 'tpope/vim-sensible'           "Starting point
@@ -55,9 +56,13 @@ let g:enable_bold_font = 1
 let g:enable_italic_font = 1
 autocmd ColorScheme * highlight LineNr ctermfg=grey ctermbg=none
 autocmd ColorScheme * highlight Visual ctermfg=none ctermbg=239
+autocmd ColorScheme * highlight Pmenu ctermfg=02 ctermbg=19
+autocmd ColorScheme * highlight PmenuSel ctermfg=02 
+autocmd ColorScheme * highlight Folded ctermbg=none
+autocmd ColorScheme * highlight VertSplit ctermfg=none ctermbg=none
+" autocmd ColorScheme * highlight StatusLine ctermfg=none
+autocmd ColorScheme * highlight SignColumn ctermfg=none ctermbg=none
 
-autocmd ColorScheme * highlight Pmenu ctermfg=white ctermbg=02
-" autocmd ColorScheme * highlight Normal ctermfg=none ctermbg=0
 set pastetoggle=<F2> "To enter paste mode to avoid indent issues
 set clipboard=unnamed
 syntax enable
@@ -145,23 +150,22 @@ let g:airline_symbols.readonly = ''
 let g:airline_symbols.linenr = ''
 
 " ================ NerdTREE  ====================
+"Start NERDTree if vim starts with no arguments
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 let g:NERDTreeDirArrowExpandable = '▸'
 let g:NERDTreeDirArrowCollapsible = '▾'
-"autocmd vimenter * NERDTree "Command to start NerdTREE automatically
 autocmd StdinReadPre * let s:std_in=1
-"Start NERDTree if vim starts with no arguments
-"autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 map <C-n> :NERDTreeToggle<CR>
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 " ================ Syntastic ====================
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
+" set statusline+=%#warningmsg#
+" set statusline+=%{SyntasticStatuslineFlag()}
+" set statusline+=%*
+" let g:syntastic_always_populate_loc_list = 1
+" let g:syntastic_auto_loc_list = 1
+" let g:syntastic_check_on_open = 1
+" let g:syntastic_check_on_wq = 0
 
 " ================ Easy Align ====================
 " Start interactive EasyAlign in visual mode (e.g. vipga)
@@ -196,6 +200,7 @@ let g:indentLine_color_tty_light = 7 " (default: 4)
 let g:indentLine_color_dark = 1 " (default: 2)
 
 " ================ Functions ====================
+map <F7> mzgg=G`z
 nmap <F11> :tabp <cr>
 nmap <F12> :tabn <cr>
 
