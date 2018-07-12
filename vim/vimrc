@@ -55,6 +55,9 @@ let g:enable_bold_font = 1
 let g:enable_italic_font = 1
 autocmd ColorScheme * highlight LineNr ctermfg=grey ctermbg=none
 autocmd ColorScheme * highlight Visual ctermfg=none ctermbg=239
+
+autocmd ColorScheme * highlight Pmenu ctermfg=white ctermbg=02
+" autocmd ColorScheme * highlight Normal ctermfg=none ctermbg=0
 set pastetoggle=<F2> "To enter paste mode to avoid indent issues
 set clipboard=unnamed
 syntax enable
