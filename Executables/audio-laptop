@@ -1,2 +1,0 @@
-pacmd "set-card-profile 1 output:analog-stereo"
-pacmd "set-card-profile 0 off"
