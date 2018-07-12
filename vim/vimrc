@@ -59,9 +59,10 @@ autocmd ColorScheme * highlight Visual ctermfg=none ctermbg=239
 autocmd ColorScheme * highlight Pmenu ctermfg=02 ctermbg=19
 autocmd ColorScheme * highlight PmenuSel ctermfg=02 
 autocmd ColorScheme * highlight Folded ctermbg=none
-autocmd ColorScheme * highlight VertSplit ctermfg=none ctermbg=none
+autocmd ColorScheme * highlight VertSplit ctermbg=none
 " autocmd ColorScheme * highlight StatusLine ctermfg=none
 autocmd ColorScheme * highlight SignColumn ctermfg=none ctermbg=none
+autocmd ColorScheme * highlight CursorLine ctermbg=19
 
 set pastetoggle=<F2> "To enter paste mode to avoid indent issues
 set clipboard=unnamed

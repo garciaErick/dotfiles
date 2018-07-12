@@ -9,12 +9,12 @@ ZSH_THEME="agnoster"
 
 source $ZSH/oh-my-zsh.sh
 
+# Term Colors
 BASE16_SHELL="$HOME/.config/base16-shell/base16-material.dark.sh"
 [[ -s $BASE16_SHELL  ]] && source $BASE16_SHELL
 
 alias zshrc="vim ~/.zshrc && . ~/.zshrc"
 alias vimrc="vim ~/.vimrc "
-# alias vimrc="vim ~/.vimrc && . ~/.vimrc"
 alias reloadzshrc='. ~/.zshrc'
 
 #Aliases for Windows native paths
@@ -28,7 +28,9 @@ alias compileUiFile='function compileUiFile(){ winuic5 -o "$1.py" "$1.ui";};comp
 alias officeword='/mnt/c/Program\ Files\ \(x86\)/Microsoft\ Office/root/Office16/WINWORD.EXE'
 alias explorer='/mnt/c/Windows/explorer.exe'
 alias pissh='sshpass -p "whiteWolf1!" ssh -o StrictHostKeyChecking=no pi@192.168.1.78'
-alias hyperrc='vim garciaErick/.hyper.js'
+alias vimPluginsUpdate="vim +PluginInstall +qall"
+alias termcolors='vim ~/.config/base16-shell/base16-material.dark.sh'
+alias vimcolors='vim ~/.vim/colors/base16-material.vim'
 
 #For git log
 alias gitlog='git log --all --color --graph --pretty=format:"%C(yellow)%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" --abbrev-commit'
