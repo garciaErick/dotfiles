@@ -1,5 +1,6 @@
-export ZSH=/home/garciaErick/.oh-my-zsh
+export ZSH=~/.oh-my-zsh
 export LS_COLORS='ow=01;36;40'
+[[ $TERM != "screen" ]] && exec tmux
 
 DEFAULT_USER=$USER
 PATH=$PATH:/mnt/c/Users/garciaErick/AppData/Local/Programs/Python/Python37/python.exe
@@ -15,13 +16,14 @@ BASE16_SHELL="$HOME/.config/base16-shell/base16-material.dark.sh"
 
 alias zshrc="vim ~/.zshrc && . ~/.zshrc"
 alias vimrc="vim ~/.vimrc "
+alias tmuxrc="vim ~/.tmux.conf && tmux source-file ~/.tmux.conf"
 alias reloadzshrc='. ~/.zshrc'
 
 #Aliases for Windows native paths
 alias subl='/mnt/c/Program\ Files/Sublime\ Text\ 3/subl.exe'
 alias VSCODE_PATH='/mnt/c/Program\ Files/Microsoft\ VS\ Code/Code.exe'
 alias python='/mnt/c/Users/garciaErick/AppData/Local/Programs/Python/Python37/python.exe'
-alias go='/mnt/c/Go/bin/go.exe'
+# alias go='/usr/bin/go'
 alias winpython='/mnt/c/Users/erick/AppData/Local/Programs/Python/Python36/python.exe'
 alias winuic5='/mnt/c/Users/erick/AppData/Local/Programs/Python/Python36/Scripts/pyuic5.exe'
 alias compileUiFile='function compileUiFile(){ winuic5 -o "$1.py" "$1.ui";};compileUiFile'
