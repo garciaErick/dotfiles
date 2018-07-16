@@ -8,21 +8,23 @@ Plugin 'sheerun/vim-polyglot'
 Plugin 'kristijanhusak/vim-hybrid-material'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
+Plugin 'tpope/vim-vinegar'
 Plugin 'w0rp/ale' "Syntax Checking
 " Plugin 'scrooloose/syntastic'         "Syntax Cheking
-Plugin 'scrooloose/nerdTree'          "IDE-like file manager
-Plugin 'ctrlpvim/ctrlp.vim'           "IntelliJ-like file searching
-Plugin 'tpope/vim-sensible'           "Starting point
-Plugin 'tpope/vim-surround'           "Surround with characters with cs command
-Plugin 'tpope/vim-commentary'         "Comment plugin by gcc command
-Plugin 'tpope/vim-markdown'           "Markdown syntax highlighting
-Plugin 'terryma/vim-multiple-cursors' "Sublime text-like multiple cursors
-Plugin 'Valloric/YouCompleteMe'       "Autocomplete as you type
-Plugin 'junegunn/vim-easy-align'      "Alignnent plugin with <ga>
-Plugin 'jiangmiao/auto-pairs'         "Auto-closing brackets plugin
-Plugin 'xolox/vim-misc'               "Xolox plugins dependencies
-Plugin 'Yggdroot/indentLine'          "Indent Lines Plugin
-Plugin 'terryma/vim-smooth-scroll'    "Vim smooth scrolling
+Plugin 'scrooloose/nerdTree'          " IDE-like file manager
+Plugin 'bkad/CamelCaseMotion'         " Detect camel case
+Plugin 'ctrlpvim/ctrlp.vim'           " IntelliJ-like file searching
+Plugin 'tpope/vim-sensible'           " Starting point
+Plugin 'tpope/vim-surround'           " Surround with characters with cs command
+Plugin 'tpope/vim-commentary'         " Comment plugin by gcc command
+Plugin 'tpope/vim-markdown'           " Markdown syntax highlighting
+Plugin 'terryma/vim-multiple-cursors' " Sublime text-like multiple cursors
+Plugin 'Valloric/YouCompleteMe'       " Autocomplete as you type
+Plugin 'junegunn/vim-easy-align'      " Alignnent plugin with <ga>
+Plugin 'jiangmiao/auto-pairs'         " Auto-closing brackets plugin
+Plugin 'xolox/vim-misc'               " Xolox plugins dependencies
+Plugin 'Yggdroot/indentLine'          " Indent Lines Plugin
+Plugin 'terryma/vim-smooth-scroll'    " Vim smooth scrolling
 " Snippets Section
 " Vim Snipmate Dependencies
 " Plugin 'MarcWeber/vim-addon-mw-utils'
@@ -49,8 +51,8 @@ set noshowmode
 set hidden
 set number
 set autoread 
-" set visualbell
 set t_Co=256
+set cursorline
 colorscheme base16-material
 let g:enable_bold_font = 1
 let g:enable_italic_font = 1
@@ -60,6 +62,9 @@ autocmd ColorScheme * highlight Pmenu ctermfg=02 ctermbg=19
 autocmd ColorScheme * highlight PmenuSel ctermfg=02 
 autocmd ColorScheme * highlight Folded ctermbg=none
 autocmd ColorScheme * highlight VertSplit ctermbg=none
+autocmd ColorScheme * highlight VertSplit ctermbg=none
+autocmd ColorScheme * highlight VertSplit ctermbg=none
+autocmd ColorScheme * highlight CursorLineNr ctermbg=19 ctermfg=white 
 " autocmd ColorScheme * highlight StatusLine ctermfg=none
 autocmd ColorScheme * highlight SignColumn ctermfg=none ctermbg=none
 autocmd ColorScheme * highlight CursorLine ctermbg=19
@@ -77,6 +82,19 @@ nnoremap <silent> <C-l> :nohl<CR><C-l>
 set mouse=a
 "Force to save files that require root permissions
 cmap w!! %!sudo tee > /dev/null % "
+
+
+" ================ Camel Case==============
+"Detect camel case
+call camelcasemotion#CreateMotionMappings('<leader>')
+map <silent> w <Plug>CamelCaseMotion_w
+map <silent> b <Plug>CamelCaseMotion_b
+map <silent> e <Plug>CamelCaseMotion_e
+map <silent> ge <Plug>CamelCaseMotion_ge
+sunmap w
+sunmap b
+sunmap e
+sunmap ge
 
 " ================ Turn Off Swap Files ==============
 set noswapfile
