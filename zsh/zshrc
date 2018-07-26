@@ -18,7 +18,8 @@ BASE16_SHELL="$HOME/.config/base16-shell/base16-material.dark.sh"
 [[ -s $BASE16_SHELL  ]] && source $BASE16_SHELL
 
 alias zshrc="vim ~/.zshrc && . ~/.zshrc"
-alias vimrc="vim ~/.vimrc "
+alias vimrc="vim ~/.vimrc"
+alias emacsrc="emacs ~/.emacs"
 alias tmuxrc="vim ~/.tmux.conf && tmux source-file ~/.tmux.conf"
 alias reloadzshrc='. ~/.zshrc'
 
@@ -38,6 +39,7 @@ alias termcolors='vim ~/.config/base16-shell/base16-material.dark.sh'
 alias vimcolors='vim ~/.vim/colors/base16-material.vim'
 alias :q='exit'
 alias :w='echo This is not vim'
+alias open='cmd.exe /C start'
 
 #For git log
 alias gitlog='git log --all --color --graph --pretty=format:"%C(yellow)%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" --abbrev-commit'
