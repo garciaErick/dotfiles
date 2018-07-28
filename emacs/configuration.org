@@ -17,6 +17,8 @@
 (setq user-full-name "Erick Garcia"
       user-mail-address "me@erick-garcia.com"
       )
+
+(setq org-src-fontify-natively t)
       
 
 (if (not (package-installed-p 'use-package))

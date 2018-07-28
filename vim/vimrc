@@ -19,7 +19,7 @@ Plugin 'tpope/vim-surround'           " Surround with characters with cs command
 Plugin 'tpope/vim-commentary'         " Comment plugin by gcc command
 Plugin 'tpope/vim-markdown'           " Markdown syntax highlighting
 Plugin 'terryma/vim-multiple-cursors' " Sublime text-like multiple cursors
-Plugin 'Valloric/YouCompleteMe'       " Autocomplete as you type
+" Plugin 'Valloric/YouCompleteMe'       " Autocomplete as you type
 Plugin 'junegunn/vim-easy-align'      " Alignnent plugin with <ga>
 Plugin 'jiangmiao/auto-pairs'         " Auto-closing brackets plugin
 Plugin 'xolox/vim-misc'               " Xolox plugins dependencies
