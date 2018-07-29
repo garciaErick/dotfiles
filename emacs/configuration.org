@@ -18,8 +18,14 @@
       user-mail-address "me@erick-garcia.com"
       )
 
+
+(load-file "~/.emacs.d/sensible-defaults.el")
+(sensible-defaults/use-all-settings)
+(sensible-defaults/use-all-keybindings)
+(sensible-defaults/backup-to-temp-directory)
+
 (setq org-src-fontify-natively t)
-      
+(setq vc-follow-symlinks t)
 
 (if (not (package-installed-p 'use-package))
   (progn
@@ -39,11 +45,11 @@
              :config (auto-compile-on-load-mode))
 (setq load-prefer-newer t)
 
-(setq inhibit-startup-message t)
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 2)
 (setq indent-line-function 'insert-tab)
-(menu-bar-mode -1) 
+(global-subword-mode 1)
+(menu-bar-mode -1)
 (xterm-mouse-mode 1)
 (savehist-mode 1)
 (global-linum-mode t)
@@ -54,20 +60,49 @@
 
 (use-package evil
              :ensure t
-             :config 
+             :config
              (evil-mode)
              )
+(define-key evil-insert-state-map (kbd "TAB") 'tab-to-tab-stop)
+
+(use-package centered-cursor-mode
+             :ensure t
+              :config
+(global-centered-cursor-mode +1)
+             )
+
+(use-package aggressive-indent
+             :ensure t
+              :config
+(add-hook 'emacs-lisp-mode-hook #'aggressive-indent-mode)
+(add-hook 'css-mode-hook #'aggressive-indent-mode)
+(add-to-list 'aggressive-indent-excluded-modes 'html-mode)
+             )
+
+
 
 (use-package org-bullets
-:ensure t
+  :init
+(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 )
+(setq org-bullets-face-name (quote org-bullet-face))
+
+(setq org-ellipsis "⤵")
+(setq org-src-tab-acts-natively t)
+
+(setq org-src-window-setup 'current-window)
+
+(add-to-list 'org-structure-template-alist
+             '("el" "#+BEGIN_SRC emacs-lisp\n?\n#+END_SRC"))
+
+(add-hook 'org-mode-hook 'flyspell-mode)
 
 (use-package material-theme
-             :config 
+             :config
              :ensure t)
 (load-theme 'material t)
 
-(use-package undo-tree 
+(use-package undo-tree
              :ensure t)
 
 (use-package org

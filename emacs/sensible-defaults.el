@@ -102,7 +102,7 @@ automatically append one."
 
 (defun sensible-defaults/confirm-closing-emacs ()
   "Ask if you're sure that you want to close Emacs."
-  (setq confirm-kill-emacs 'y-or-n-p))
+   (setq confirm-kill-emacs 'y-or-n-p))
 
 (defun sensible-defaults/quiet-startup ()
   "Don't present the usual startup message, and clear the scratch
@@ -166,7 +166,6 @@ insert the text where point is, not where the mouse cursor is."
   (sensible-defaults/apply-changes-to-highlighted-region)
   (sensible-defaults/overwrite-selected-text)
   (sensible-defaults/ensure-that-files-end-with-newline)
-  (sensible-defaults/confirm-closing-emacs)
   (sensible-defaults/quiet-startup)
   (sensible-defaults/make-dired-file-sizes-human-readable)
   (sensible-defaults/shorten-yes-or-no)

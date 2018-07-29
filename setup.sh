@@ -42,6 +42,7 @@ echo "Setting up Emacs configuration"
 mkdir -p ~/.emacs.d
 ln -sf $emacsDir/configuration.org ~/.emacs.d/.
 ln -sf $emacsDir/sensible-defaults.el ~/.emacs.d/.
+ln -sf $emacsDir/scroll-mode-line-mode.el ~/.emacs.d/.
 ln -sf $emacsDir/init.el ~/.emacs.d/.
 echo "Done \n"
 

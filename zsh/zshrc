@@ -16,7 +16,7 @@ BASE16_SHELL="$HOME/.config/base16-shell/base16-material.dark.sh"
 
 alias zshrc="vim ~/.zshrc && . ~/.zshrc"
 alias vimrc="vim ~/.vimrc"
-alias emacsrc="emacs ~/.emacs"
+alias emacsrc="emacs ~/.emacs.d/configuration.org"
 alias tmuxrc="vim ~/.tmux.conf && tmux source-file ~/.tmux.conf"
 alias reloadzshrc='. ~/.zshrc'
 
