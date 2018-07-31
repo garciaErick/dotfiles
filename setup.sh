@@ -12,7 +12,8 @@ ln -sf $tmuxDir/tmux.conf ~/.tmux.conf
 echo "Done \n"
 
 echo "Installing shell color scheme"
-mkdir -p ~/.config/base16-shell ln -sf $cwd/colors/base16-material.dark.sh ~/.config/base16-shell/base16-material.dark.sh 
+mkdir -p ~/.config/base16-shell 
+ln -sf $cwd/colors/base16-material.dark.sh ~/.config/base16-shell/base16-material.dark.sh 
 echo "Done \n"
 
 echo "Setting up Zsh configuration"
