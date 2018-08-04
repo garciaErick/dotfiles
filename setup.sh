@@ -12,8 +12,10 @@ ln -sf $tmuxDir/tmux.conf ~/.tmux.conf
 echo "Done \n"
 
 echo "Installing shell color scheme"
-mkdir -p ~/.config/base16-shell 
-ln -sf $cwd/colors/base16-material.dark.sh ~/.config/base16-shell/base16-material.dark.sh 
+mkdir -p ~/.config/base16-shell
+ln -sf $cwd/colors/base16-material.sh ~/.config/base16-shell/base16-material.sh
+ln -sf $cwd/colors/base16-material-palenight.sh ~/.config/base16-shell/base16-material-palenight.sh
+ln -sf $cwd/colors/base16-material-palenight-darker.sh ~/.config/base16-shell/base16-material-palenight-darker.sh
 echo "Done \n"
 
 echo "Setting up Zsh configuration"
@@ -46,5 +48,3 @@ ln -sf $emacsDir/sensible-defaults.el ~/.emacs.d/.
 ln -sf $emacsDir/scroll-mode-line-mode.el ~/.emacs.d/.
 ln -sf $emacsDir/init.el ~/.emacs.d/.
 echo "Done \n"
-
-

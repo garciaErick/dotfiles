@@ -62,7 +62,7 @@
     (global-linum-mode t)
     (setq linum-format "%4d \u2502 ")
     (global-hl-line-mode 1)
-    (set-face-background 'hl-line "brightblack")
+    (set-face-background 'hl-line "color-19")
     (set-face-foreground 'highlight nil)
 
     (use-package evil
@@ -118,7 +118,9 @@
 (use-package base16-theme
   :ensure t
   :config
-  (load-theme 'base16-default-dark t))
+ (setq base16-theme-256-color-source "terminal")
+  (load-theme 'base16-material)
+)
 
 ;; (use-package material-theme
 ;;   :config
@@ -179,23 +181,8 @@
       (dolist (char-regexp alist)
         (set-char-table-range composition-function-table (car char-regexp)
                               `([,(cdr char-regexp) 0 font-shape-gstring]))))
-    (custom-set-variables
-     ;; custom-set-variables was added by Custom.
-     ;; If you edit it by hand, you could mess it up, so be careful.
-     ;; Your init file should contain only one such instance.
-     ;; If there is more than one, they won't work right.
-     '(package-selected-packages
-       (quote
-        (flycheck-color-mode-line powerline material-theme evil auto-compile use-package))))
-    (custom-set-faces
-     ;; custom-set-faces was added by Custom.
-     ;; If you edit it by hand, you could mess it up, so be careful.
-     ;; Your init file should contain only one such instance.
-     ;; If there is more than one, they won't work right.
-     )
-(set-face-foreground 'font-lock-comment-face "brightblack")
-(set-face-background 'linum "brightblack")
-(set-face-foreground 'linum "brightblack")
-(set-face-attribute 'region nil :background "black")
-(set-face-attribute 'region nil :foreground "blue")
+;; (set-face-foreground 'font-lock-comment-face "brightblack")
+(set-face-background 'linum "black")
+(set-face-attribute 'region nil :background "color-18")
+;; (set-face-attribute 'region nil :foreground "blue")
 #+END_SRC
