@@ -2,191 +2,200 @@
 ** my name
 *** is Erick
 #+BEGIN_SRC emacs-lisp
-  (require 'package)
+    (require 'package)
 
-  (setq url-proxy-services
-        '(("no_proxy" . "^\\(localhost\\|10\\..*\\|192\\.168\\..*\\)")
-          ("http" . "web-proxy.houston.hpecorp.net:8080")
-          ("https" . "web-proxy.houston.hpecorp.net:8080")))
+    ;;(setq url-proxy-services
+    ;;      '(("no_proxy" . "^\\(localhost\\|10\\..*\\|192\\.168\\..*\\)")
+    ;;        ("http" . "web-proxy.houston.hpecorp.net:8080")
+    ;;        ("https" . "web-proxy.houston.hpecorp.net:8080")))
 
-  (let* ((no-ssl (and (memq system-type '(windows-nt ms-dos))
-                      (not (gnutls-available-p))))
-         (proto (if no-ssl "http" "https")))
-    ;; Comment/uncomment these two lines to enable/disable MELPA and MELPA Stable as desired
-    (add-to-list 'package-archives (cons "melpa" (concat proto "://melpa.org/packages/")) t)
-    (add-to-list 'package-archives (cons "melpa-stable" (concat proto "://stable.melpa.org/packages/")) t)
-    (when (< emacs-major-version 24)
-      (add-to-list 'package-archives '("gnu" . (concat proto "://elpa.gnu.org/packages/")))))
+    (let* ((no-ssl (and (memq system-type '(windows-nt ms-dos))
+                        (not (gnutls-available-p))))
+           (proto (if no-ssl "http" "https")))
+      ;; Comment/uncomment these two lines to enable/disable MELPA and MELPA Stable as desired
+      (add-to-list 'package-archives (cons "melpa" (concat proto "://melpa.org/packages/")) t)
+      (add-to-list 'package-archives (cons "melpa-stable" (concat proto "://stable.melpa.org/packages/")) t)
+      (when (< emacs-major-version 24)
+        (add-to-list 'package-archives '("gnu" . (concat proto "://elpa.gnu.org/packages/")))))
 
-  (package-initialize)
+    (package-initialize)
 
-  ;; General Emacs configuration
+    ;; General Emacs configuration
 
-  (setq user-full-name "Erick Garcia"
-        user-mail-address "me@erick-garcia.com"
-        )
+    (setq user-full-name "Erick Garcia"
+          user-mail-address "me@erick-garcia.com"
+          )
 
+    (load-file "~/.emacs.d/sensible-defaults.el")
+    (sensible-defaults/use-all-settings)
+    (sensible-defaults/use-all-keybindings)
+    (sensible-defaults/backup-to-temp-directory)
 
-  (load-file "~/.emacs.d/sensible-defaults.el")
-  (sensible-defaults/use-all-settings)
-  (sensible-defaults/use-all-keybindings)
-  (sensible-defaults/backup-to-temp-directory)
+    (setq org-src-fontify-natively t)
+    (setq vc-follow-symlinks t)
 
-  (setq org-src-fontify-natively t)
-  (setq vc-follow-symlinks t)
+    (if (not (package-installed-p 'use-package))
+        (progn
+          (package-refresh-contents)
+          (package-install 'use-package)))
 
-  (if (not (package-installed-p 'use-package))
-      (progn
-        (package-refresh-contents)
-        (package-install 'use-package)))
+    (require 'use-package)
 
-  (require 'use-package)
+    ;; use-package
+    (unless (package-installed-p 'use-package)
+      (package-install 'use-package))
 
-  ;; use-package
-  (unless (package-installed-p 'use-package)
-    (package-install 'use-package))
+    (setq use-package-verbose t)
+    (setq use-package-always-ensure t)
 
-  (setq use-package-verbose t)
-  (setq use-package-always-ensure t)
+    (use-package auto-compile
+      :config (auto-compile-on-load-mode))
+    (setq load-prefer-newer t)
 
-  (use-package auto-compile
-    :config (auto-compile-on-load-mode))
-  (setq load-prefer-newer t)
+    (setq-default indent-tabs-mode nil)
+    (setq-default tab-width 2)
+    (setq indent-line-function 'insert-tab)
+    (global-subword-mode 1)
+    (menu-bar-mode -1)
+    (xterm-mouse-mode 1)
+    (savehist-mode 1)
+    (global-linum-mode t)
+    (setq linum-format "%4d \u2502 ")
+    (global-hl-line-mode 1)
+    (set-face-background 'hl-line "brightblack")
+    (set-face-foreground 'highlight nil)
 
-  (setq-default indent-tabs-mode nil)
-  (setq-default tab-width 2)
-  (setq indent-line-function 'insert-tab)
-  (global-subword-mode 1)
-  (menu-bar-mode -1)
-  (xterm-mouse-mode 1)
-  (savehist-mode 1)
-  (global-linum-mode t)
-  (setq linum-format "%4d \u2502 ")
-  ;; (global-hl-line-mode 1)
-  ;; (set-face-background 'hl-line "19")
-  ;; (set-face-foreground 'highlight nil)
+    (use-package evil
+      :ensure t
+      :config
+      (evil-mode)
+      )
+    (define-key evil-insert-state-map (kbd "TAB") 'tab-to-tab-stop)
+    (use-package evil-surround
+      :ensure t
+      :config
+      (global-evil-surround-mode 1))
 
-  (use-package evil
-    :ensure t
-    :config
-    (evil-mode)
-    )
-  (define-key evil-insert-state-map (kbd "TAB") 'tab-to-tab-stop)
-  (use-package evil-surround
-    :ensure t
-    :config
-    (global-evil-surround-mode 1))
+    (use-package projectile
+      :ensure t
+      :config
+      (define-key evil-normal-state-map (kbd "C-p") 'projectile-find-file)
+      )
 
-  (use-package projectile
-    :ensure t
-    :config
-    (define-key evil-normal-state-map (kbd "C-p") 'projectile-find-file)
-    )
+    (use-package centered-cursor-mode
+      :ensure t
+      :config
+      (global-centered-cursor-mode +1)
+      )
 
-  (use-package centered-cursor-mode
-    :ensure t
-    :config
-    (global-centered-cursor-mode +1)
-    )
+    (use-package aggressive-indent
+      :ensure t
+      :config
+      (add-hook 'emacs-lisp-mode-hook #'aggressive-indent-mode)
+      (add-hook 'css-mode-hook #'aggressive-indent-mode)
+      (add-to-list 'aggressive-indent-excluded-modes 'html-mode)
+      )
 
-  (use-package aggressive-indent
-    :ensure t
-    :config
-    (add-hook 'emacs-lisp-mode-hook #'aggressive-indent-mode)
-    (add-hook 'css-mode-hook #'aggressive-indent-mode)
-    (add-to-list 'aggressive-indent-excluded-modes 'html-mode)
-    )
+    (use-package org-bullets
+      :init
+      (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+      )
 
-  (use-package org-bullets
-    :init
-    (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
-    )
-  (setq org-hide-leading-stars t)
-  (setq org-bullets-face-name (quote org-bullet-face))
-  (setq org-ellipsis "⤵")
-  (setq org-src-tab-acts-natively t)
+    (setq org-hide-leading-stars t)
+    (setq org-bullets-face-name (quote org-bullet-face))
+    (setq org-ellipsis "⤵")
+    (setq org-src-tab-acts-natively t)
 
-  (setq org-src-window-setup 'current-window)
+    (setq org-src-window-setup 'current-window)
 
-  (add-to-list 'org-structure-template-alist
-               '("el" "#+BEGIN_SRC emacs-lisp\n?\n#+END_SRC"))
+    (add-to-list 'org-structure-template-alist
+                 '("el" "#+BEGIN_SRC emacs-lisp\n?\n#+END_SRC"))
 
-  (add-hook 'org-mode-hook 'flyspell-mode)
+    (add-hook 'org-mode-hook 'flyspell-mode)
 
-  (global-prettify-symbols-mode t)
+    (global-prettify-symbols-mode t)
 
-  (use-package material-theme
-    :config
-    :ensure t)
-  (load-theme 'material t)
+(use-package base16-theme
+  :ensure t
+  :config
+  (load-theme 'base16-default-dark t))
 
-  (use-package undo-tree
-    :ensure t
-    :config
-    (setq undo-tree-auto-save-history t)
-    )
+;; (use-package material-theme
+;;   :config
+;;   :ensure t)
+;; (load-theme 'material t)
 
-  (use-package org
-    :ensure t)
+    (use-package undo-tree
+      :ensure t
+      :config
+      (setq undo-tree-auto-save-history t)
+      )
 
-                                          ;   ;; Appearance
+    (use-package org
+      :ensure t)
 
-  (use-package powerline
-    :ensure t
-    :config
-    (powerline-center-evil-theme)
+                                            ;   ;; Appearance
 
-    ;; (use-package flycheck-color-mode-line
-    ;;              :ensure t
-    ;;              :config
-    ;;              (add-hook 'flycheck-mode-hook 'flycheck-color-mode-line-mode))
-    )
+    (use-package powerline
+      :ensure t
+      :config
+      (powerline-center-evil-theme)
 
-  ;; Fira code
-  (when (window-system)
-    (set-frame-font "Fira Code"))
-  (let ((alist '((33 . ".\\(?:\\(?:==\\|!!\\)\\|[!=]\\)")
-                 (35 . ".\\(?:###\\|##\\|_(\\|[#(?[_{]\\)")
-                 (36 . ".\\(?:>\\)")
-                 (37 . ".\\(?:\\(?:%%\\)\\|%\\)")
-                 (38 . ".\\(?:\\(?:&&\\)\\|&\\)")
-                 (42 . ".\\(?:\\(?:\\*\\*/\\)\\|\\(?:\\*[*/]\\)\\|[*/>]\\)")
-                 (43 . ".\\(?:\\(?:\\+\\+\\)\\|[+>]\\)")
-                 (45 . ".\\(?:\\(?:-[>-]\\|<<\\|>>\\)\\|[<>}~-]\\)")
-                 (46 . ".\\(?:\\(?:\\.[.<]\\)\\|[.=-]\\)")
-                 (47 . ".\\(?:\\(?:\\*\\*\\|//\\|==\\)\\|[*/=>]\\)")
-                 (48 . ".\\(?:x[a-zA-Z]\\)")
-                 (58 . ".\\(?:::\\|[:=]\\)")
-                 (59 . ".\\(?:;;\\|;\\)")
-                 (60 . ".\\(?:\\(?:!--\\)\\|\\(?:~~\\|->\\|\\$>\\|\\*>\\|\\+>\\|--\\|<[<=-]\\|=[<=>]\\||>\\)\\|[*$+~/<=>|-]\\)")
-                 (61 . ".\\(?:\\(?:/=\\|:=\\|<<\\|=[=>]\\|>>\\)\\|[<=>~]\\)")
-                 (62 . ".\\(?:\\(?:=>\\|>[=>-]\\)\\|[=>-]\\)")
-                 (63 . ".\\(?:\\(\\?\\?\\)\\|[:=?]\\)")
-                 (91 . ".\\(?:]\\)")
-                 (92 . ".\\(?:\\(?:\\\\\\\\\\)\\|\\\\\\)")
-                 (94 . ".\\(?:=\\)")
-                 (119 . ".\\(?:ww\\)")
-                 (123 . ".\\(?:-\\)")
-                 (124 . ".\\(?:\\(?:|[=|]\\)\\|[=>|]\\)")
-                 (126 . ".\\(?:~>\\|~~\\|[>=@~-]\\)")
-                 )
-               ))
-    (dolist (char-regexp alist)
-      (set-char-table-range composition-function-table (car char-regexp)
-                            `([,(cdr char-regexp) 0 font-shape-gstring]))))
-  (custom-set-variables
-   ;; custom-set-variables was added by Custom.
-   ;; If you edit it by hand, you could mess it up, so be careful.
-   ;; Your init file should contain only one such instance.
-   ;; If there is more than one, they won't work right.
-   '(package-selected-packages
-     (quote
-      (flycheck-color-mode-line powerline material-theme evil auto-compile use-package))))
-  (custom-set-faces
-   ;; custom-set-faces was added by Custom.
-   ;; If you edit it by hand, you could mess it up, so be careful.
-   ;; Your init file should contain only one such instance.
-   ;; If there is more than one, they won't work right.
-   )
+      ;; (use-package flycheck-color-mode-line
+      ;;              :ensure t
+      ;;              :config
+      ;;              (add-hook 'flycheck-mode-hook 'flycheck-color-mode-line-mode))
+      )
 
+    ;; Fira code
+    (when (window-system)
+      (set-frame-font "Fira Code"))
+    (let ((alist '((33 . ".\\(?:\\(?:==\\|!!\\)\\|[!=]\\)")
+                   (35 . ".\\(?:###\\|##\\|_(\\|[#(?[_{]\\)")
+                   (36 . ".\\(?:>\\)")
+                   (37 . ".\\(?:\\(?:%%\\)\\|%\\)")
+                   (38 . ".\\(?:\\(?:&&\\)\\|&\\)")
+                   (42 . ".\\(?:\\(?:\\*\\*/\\)\\|\\(?:\\*[*/]\\)\\|[*/>]\\)")
+                   (43 . ".\\(?:\\(?:\\+\\+\\)\\|[+>]\\)")
+                   (45 . ".\\(?:\\(?:-[>-]\\|<<\\|>>\\)\\|[<>}~-]\\)")
+                   (46 . ".\\(?:\\(?:\\.[.<]\\)\\|[.=-]\\)")
+                   (47 . ".\\(?:\\(?:\\*\\*\\|//\\|==\\)\\|[*/=>]\\)")
+                   (48 . ".\\(?:x[a-zA-Z]\\)")
+                   (58 . ".\\(?:::\\|[:=]\\)")
+                   (59 . ".\\(?:;;\\|;\\)")
+                   (60 . ".\\(?:\\(?:!--\\)\\|\\(?:~~\\|->\\|\\$>\\|\\*>\\|\\+>\\|--\\|<[<=-]\\|=[<=>]\\||>\\)\\|[*$+~/<=>|-]\\)")
+                   (61 . ".\\(?:\\(?:/=\\|:=\\|<<\\|=[=>]\\|>>\\)\\|[<=>~]\\)")
+                   (62 . ".\\(?:\\(?:=>\\|>[=>-]\\)\\|[=>-]\\)")
+                   (63 . ".\\(?:\\(\\?\\?\\)\\|[:=?]\\)")
+                   (91 . ".\\(?:]\\)")
+                   (92 . ".\\(?:\\(?:\\\\\\\\\\)\\|\\\\\\)")
+                   (94 . ".\\(?:=\\)")
+                   (119 . ".\\(?:ww\\)")
+                   (123 . ".\\(?:-\\)")
+                   (124 . ".\\(?:\\(?:|[=|]\\)\\|[=>|]\\)")
+                   (126 . ".\\(?:~>\\|~~\\|[>=@~-]\\)")
+                   )
+                 ))
+      (dolist (char-regexp alist)
+        (set-char-table-range composition-function-table (car char-regexp)
+                              `([,(cdr char-regexp) 0 font-shape-gstring]))))
+    (custom-set-variables
+     ;; custom-set-variables was added by Custom.
+     ;; If you edit it by hand, you could mess it up, so be careful.
+     ;; Your init file should contain only one such instance.
+     ;; If there is more than one, they won't work right.
+     '(package-selected-packages
+       (quote
+        (flycheck-color-mode-line powerline material-theme evil auto-compile use-package))))
+    (custom-set-faces
+     ;; custom-set-faces was added by Custom.
+     ;; If you edit it by hand, you could mess it up, so be careful.
+     ;; Your init file should contain only one such instance.
+     ;; If there is more than one, they won't work right.
+     )
+(set-face-foreground 'font-lock-comment-face "brightblack")
+(set-face-background 'linum "brightblack")
+(set-face-foreground 'linum "brightblack")
+(set-face-attribute 'region nil :background "black")
+(set-face-attribute 'region nil :foreground "blue")
 #+END_SRC

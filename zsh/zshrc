@@ -5,6 +5,8 @@ export LS_COLORS='ow=01;36;40'
 [[ $TERM != "screen" ]] && exec tmux
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+# export TERM=screen-256color
+
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="agnoster"
 
@@ -47,8 +49,8 @@ alias ls='ls -X --color'
 
 # unsetopt BG_NICE
 
-function cd {     
-	builtin cd "$@" && ls -F     
+function cd {
+	builtin cd "$@" && ls -F
 }
 
 function vscode (){
@@ -60,4 +62,3 @@ function vscode (){
 }
 
 cd
-
