@@ -25,7 +25,7 @@ alias reloadzshrc='. ~/.zshrc'
 # Aliases for Windows native paths
 alias subl='/mnt/c/Program\ Files/Sublime\ Text\ 3/subl.exe'
 alias VSCODE_PATH='/mnt/c/Program\ Files/Microsoft\ VS\ Code/Code.exe'
-alias python='/mnt/c/Users/garciaErick/AppData/Local/Programs/Python/Python37/python.exe'
+# alias python='/mnt/c/Users/garciaErick/AppData/Local/Programs/Python/Python37/python.exe'
 alias go='/usr/bin/go'
 alias winpython='/mnt/c/Users/erick/AppData/Local/Programs/Python/Python36/python.exe'
 alias winuic5='/mnt/c/Users/erick/AppData/Local/Programs/Python/Python36/Scripts/pyuic5.exe'

@@ -1,0 +1,5 @@
+*~
+emacs/*
+!emacs/configuration.org
+!emacs/sensible-defaults.el
+!emacs/init.el
