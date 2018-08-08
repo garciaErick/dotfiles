@@ -4,7 +4,7 @@ These are the dotfiles needed for restoring or sharing my configurations
 
 ## How do I get set up? ##
 
-run
+* run
 
 ```sh
 me@erick-garcia.com:/path/to/repo/$~ ./setup.sh
