@@ -6,7 +6,7 @@ These are the dotfiles needed for restoring or sharing my configurations
 
 * run
 
-```sh
+```console
 me@erick-garcia.com:/path/to/repo/$~ ./setup.sh
 ```
 
