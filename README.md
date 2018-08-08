@@ -7,7 +7,7 @@ These are the dotfiles needed for restoring or sharing my configurations
 * run
 
 ```console
-me@erick-garcia.com:/path/to/repo/$~ ./setup.sh
+me@erick-garcia.com:/path/to/repo/$ ./setup.sh
 ```
 
 #### i3-Gaps Window Manager ####
