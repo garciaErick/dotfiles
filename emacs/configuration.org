@@ -115,7 +115,8 @@ Use-package is great for packagement, ensure its installed and refresh package c
 #+END_SRC
 
 * Evil
-[[https://raw.githubusercontent.com/emacs-evil/evil/master/doc/logo.png][evil-logo]]
+[[https://raw.githubusercontent.com/emacs-evil/evil/master/doc/logo.png]]
+
 Evil is an extensible *vi* layer for Emacs. Emacs is the better environment, however I would never switch without
 being able to swiftly move through code like in Vim.
 
