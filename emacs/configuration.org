@@ -29,8 +29,9 @@ Some required packages in order for config to work
 (require 'hi-lock)
 #+END_SRC
 
-** Global modes
+** UI Preferences
 Just setting some global settings such as use camelCase, line numbers, highlight current line, etc...
+
 #+BEGIN_SRC emacs-lisp
 (global-subword-mode 1)
 (menu-bar-mode -1)
@@ -40,6 +41,11 @@ Just setting some global settings such as use camelCase, line numbers, highlight
 (setq linum-format "%4d \u2502 ")
 (global-hl-line-mode 1)
 #+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+(setq frame-title-format '((:eval (projectile-project-name))))
+#+END_SRC
+
 ** Indentation settings
 I like to use tabs that are 2 spaces in width
 #+BEGIN_SRC emacs-lisp
@@ -47,6 +53,7 @@ I like to use tabs that are 2 spaces in width
 (defvaralias 'c-basic-offset 'tab-width)
 (defvaralias 'cperl-indent-level 'tab-width)
 #+END_SRC
+
 ** Custom color settings
 #+BEGIN_SRC emacs-lisp
 (set-face-background 'hl-line "color-19")
@@ -61,14 +68,19 @@ I like to use tabs that are 2 spaces in width
 (set-face-foreground 'highlight "white")
 #+END_SRC
 
-* Connection Settings
+* Package Settings
+** Proxy
 Some proxy settings to be used when needed, comment out if no proxy is needed
-#+begin_src emacs-lisp
-(setq url-proxy-services
+#+BEGIN_SRC emacs-lisp
+		(setq url-proxy-services
 								'(("no_proxy" . "^\\(localhost\\|10\\..*\\|192\\.168\\..*\\)")
-								("http" . "web-proxy.houston.hpecorp.net:8080")
-								("https" . "web-proxy.houston.hpecorp.net:8080")))
+										("http" . "web-proxy.houston.hpecorp.net:8080")
+										("https" . "web-proxy.houston.hpecorp.net:8080")))
+#+END_SRC
 
+** Melpa
+Load the Melpa package repository because I am not a savage
+#+BEGIN_SRC emacs-lisp
 (let* ((no-ssl (and (memq system-type '(windows-nt ms-dos))
 																				(not (gnutls-available-p))))
 								(proto (if no-ssl "http" "https")))
@@ -79,10 +91,11 @@ Some proxy settings to be used when needed, comment out if no proxy is needed
 				(add-to-list 'package-archives '("gnu" . (concat proto "://elpa.gnu.org/packages/")))))
 
 (package-initialize)
-#+end_src
+#+END_SRC
 
-* Package management
+** Use-package
 Use-package is great for packagement, ensure its installed and refresh package contents
+
 #+BEGIN_SRC emacs-lisp
 (if (not (package-installed-p 'use-package))
 				(progn
@@ -101,8 +114,12 @@ Use-package is great for packagement, ensure its installed and refresh package c
 (setq load-prefer-newer t)
 #+END_SRC
 
-#+BEGIN_SRC emacs-lisp
+* Evil
+[[https://raw.githubusercontent.com/emacs-evil/evil/master/doc/logo.png][evil-logo]]
+Evil is an extensible *vi* layer for Emacs. Emacs is the better environment, however I would never switch without
+being able to swiftly move through code like in Vim.
 
+#+BEGIN_SRC emacs-lisp
 (use-package
 evil
 				:ensure t
