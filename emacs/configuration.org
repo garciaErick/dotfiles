@@ -3,19 +3,23 @@
 #+EMAIL: me@erick-garcia.com
 #+OPTIONS: toc:nil num:nil
 
-
 * General Configuration
+
+** Sensible defaults
+These are some defaults everyone can agree with, [[https://github.com/hrs/sensible-defaults.el][sensible-defaults.el]], by Harry R. Shwarts.
+#+BEGIN_SRC emacs-lisp
+		(load-file "~/.emacs.d/sensible-defaults.el")
+		(sensible-defaults/use-all-settings)
+		(sensible-defaults/use-all-keybindings)
+		(sensible-defaults/backup-to-temp-directory)
+		(setq auto-save-file-name-transforms
+						`((".*" ,(concat user-emacs-directory "auto-save/") t)))
+#+END_SRC
 
 #+BEGIN_SRC emacs-lisp
 (setq user-full-name "Erick Garcia"
-								user-mail-address "me@erick-garcia.com"
-								)
-(load-file "~/.emacs.d/sensible-defaults.el")
-(sensible-defaults/use-all-settings)
-(sensible-defaults/use-all-keybindings)
-(sensible-defaults/backup-to-temp-directory)
-(setq auto-save-file-name-transforms
-								`((".*" ,(concat user-emacs-directory "auto-save/") t)))
+				user-mail-address "me@erick-garcia.com"
+				)
 #+END_SRC
 
 Some required packages in order for config to work
@@ -26,6 +30,7 @@ Some required packages in order for config to work
 #+END_SRC
 
 ** Global modes
+Just setting some global settings such as use camelCase, line numbers, highlight current line, etc...
 #+BEGIN_SRC emacs-lisp
 (global-subword-mode 1)
 (menu-bar-mode -1)
@@ -36,6 +41,7 @@ Some required packages in order for config to work
 (global-hl-line-mode 1)
 #+END_SRC
 ** Indentation settings
+I like to use tabs that are 2 spaces in width
 #+BEGIN_SRC emacs-lisp
 (setq-default tab-width 1)
 (defvaralias 'c-basic-offset 'tab-width)
