@@ -6,56 +6,54 @@
 
 * General Configuration
 
-  #+BEGIN_SRC emacs-lisp
-				(setq user-full-name "Erick Garcia"
-										user-mail-address "me@erick-garcia.com"
-										)
+#+BEGIN_SRC emacs-lisp
+(setq user-full-name "Erick Garcia"
+								user-mail-address "me@erick-garcia.com"
+								)
+(load-file "~/.emacs.d/sensible-defaults.el")
+(sensible-defaults/use-all-settings)
+(sensible-defaults/use-all-keybindings)
+(sensible-defaults/backup-to-temp-directory)
+(setq auto-save-file-name-transforms
+								`((".*" ,(concat user-emacs-directory "auto-save/") t)))
+#+END_SRC
 
-				(load-file "~/.emacs.d/sensible-defaults.el")
-				(sensible-defaults/use-all-settings)
-				(sensible-defaults/use-all-keybindings)
-				(sensible-defaults/backup-to-temp-directory)
-				(setq auto-save-file-name-transforms
-										`((".*" ,(concat user-emacs-directory "auto-save/") t)))
-  #+END_SRC
+Some required packages in order for config to work
+#+BEGIN_SRC emacs-lisp
+(require 'package)
+(require 'use-package)
+(require 'hi-lock)
+#+END_SRC
 
-		Some required packages in order for config to work
-		#+BEGIN_SRC emacs-lisp
-				(require 'package)
-				(require 'use-package)
-				(require 'hi-lock)
-		#+END_SRC
-		Indentation settings
-		#+BEGIN_SRC emacs-lisp
-				(setq-default tab-width 1)
-				(defvaralias 'c-basic-offset 'tab-width)
-				(defvaralias 'cperl-indent-level 'tab-width)
-		#+END_SRC
-		Custom color settings
-		#+BEGIN_SRC emacs-lisp
-				(set-face-background 'hl-line "color-19")
-				(set-face-background 'linum "black")
-				(set-face-attribute 'region nil :background "color-18")
-				(set-face-background 'mode-line "color-18")
-				(set-face-background 'mode-line-inactive "color-18")
-				(set-face-background 'isearch "color-18")
-				(set-face-foreground 'isearch "white")
-				(set-face-background 'hi-yellow "color-18")
-				(set-face-foreground 'hi-yellow "white")
-				(set-face-foreground 'highlight "white")
-		#+END_SRC
-
-** Misc
-			Some other general settings
-			#+BEGIN_SRC emacs-lisp
-				(global-subword-mode 1)
-				(menu-bar-mode -1)
-				(xterm-mouse-mode 1)
-				(savehist-mode 1)
-				(global-linum-mode t)
-				(setq linum-format "%4d \u2502 ")
-				(global-hl-line-mode 1)
-			#+END_SRC
+** Global modes
+#+BEGIN_SRC emacs-lisp
+(global-subword-mode 1)
+(menu-bar-mode -1)
+(xterm-mouse-mode 1)
+(savehist-mode 1)
+(global-linum-mode t)
+(setq linum-format "%4d \u2502 ")
+(global-hl-line-mode 1)
+#+END_SRC
+** Indentation settings
+#+BEGIN_SRC emacs-lisp
+(setq-default tab-width 1)
+(defvaralias 'c-basic-offset 'tab-width)
+(defvaralias 'cperl-indent-level 'tab-width)
+#+END_SRC
+** Custom color settings
+#+BEGIN_SRC emacs-lisp
+(set-face-background 'hl-line "color-19")
+(set-face-background 'linum "black")
+(set-face-attribute 'region nil :background "color-18")
+(set-face-background 'mode-line "color-18")
+(set-face-background 'mode-line-inactive "color-18")
+(set-face-background 'isearch "color-18")
+(set-face-foreground 'isearch "white")
+(set-face-background 'hi-yellow "color-18")
+(set-face-foreground 'hi-yellow "white")
+(set-face-foreground 'highlight "white")
+#+END_SRC
 
 * Connection Settings
   Some proxy settings to be used when needed, comment out if no proxy is needed
