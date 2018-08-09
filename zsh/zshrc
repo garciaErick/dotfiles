@@ -1,6 +1,8 @@
 export ZSH=~/.oh-my-zsh
 export LS_COLORS='ow=01;36;40'
 
+plugins=(git)
+
 # Tmux start zsh
 # [[ $TERM != "screen" ]] && exec tmux -2
 # [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
