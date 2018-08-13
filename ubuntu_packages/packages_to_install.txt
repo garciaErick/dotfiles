@@ -1,0 +1,1 @@
+zsh emacs25-nox vim tmux
