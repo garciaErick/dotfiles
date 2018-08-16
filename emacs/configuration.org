@@ -303,6 +303,7 @@ Just some general settings as setting the org-templates, agenda files, and refil
 
 #+END_SRC
 
+* Other Packages
 #+BEGIN_SRC emacs-lisp
   (use-package centered-cursor-mode
     :ensure t
