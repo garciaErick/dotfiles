@@ -31,6 +31,7 @@ Just setting some global settings such as use camelCase, line numbers, highlight
 (global-linum-mode t)
 (setq linum-format "%4d \u2502 ")
 (global-hl-line-mode 1)
+(visual-line-mode 1)
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
@@ -59,7 +60,6 @@ I like to use tabs that are 2 spaces in width
 (set-face-foreground 'hi-yellow "white")
 (set-face-foreground 'highlight "white")
 #+END_SRC
-
 
 * Package Settings
 ** Proxy
@@ -106,7 +106,25 @@ Load the Melpa package repository because I am not a savage
 (require 'use-package)
 #+END_SRC
 
-
+* Color Theme
+I use a base16 material palenight variant for my theme, remember that you have to
+have a compatible base16 shell theme in order for this to work when running emacs
+from a terminal. You can get the theme I'm using from /colors/
+#+BEGIN_SRC emacs-lisp
+  (use-package base16-theme
+    :ensure t
+    :config
+    (setq base16-theme-256-color-source "terminal")
+    (load-theme 'base16-material)
+    )
+#+END_SRC
+Additionally you can use the material color theme when running Gui Emacs
+#+BEGIN_SRC emacs-lisp
+  ;; (use-package material-theme
+  ;;   :config
+  ;;   :ensure t)
+  ;; (load-theme 'material t)
+#+END_SRC
 * Evil
 [[https://raw.githubusercontent.com/emacs-evil/evil/master/doc/logo.png]]
 
@@ -115,55 +133,58 @@ being able to swiftly move through code like in Vim.
 
 #+BEGIN_SRC emacs-lisp
   (use-package
-  evil
-      :ensure t
-      :config
-      (evil-mode)
-      )
+    evil
+    :ensure t
+    :config
+    (evil-mode)
+    )
 
   (defun highlight-remove-all ()
-      (interactive)
-      (hi-lock-mode -1)
-      (hi-lock-mode 1))
+    (interactive)
+    (hi-lock-mode -1)
+    (hi-lock-mode 1))
 
   (defun search-highlight-persist ()
-      (highlight-regexp (car-safe (if isearch-regexp
-                                      regexp-search-ring
+    (highlight-regexp (car-safe (if isearch-regexp
+                                    regexp-search-ring
                                   search-ring)) (facep 'hi-yellow)))
 
   (defadvice isearch-exit (after isearch-hl-persist activate)
-      (highlight-remove-all)
-      (search-highlight-persist))
+    (highlight-remove-all)
+    (search-highlight-persist))
 
   (defadvice evil-search-incrementally (after evil-search-hl-persist activate)
-      (highlight-remove-all)
-      (search-highlight-persist))
-
-
+    (highlight-remove-all)
+    (search-highlight-persist))
 
   (use-package evil-surround
-      :ensure t
-      :config
-      (global-evil-surround-mode 1))
+    :ensure t
+    :config
+    (global-evil-surround-mode 1))
 
   (use-package projectile
-      :ensure t
-      :config
-      (define-key evil-normal-state-map (kbd "C-p") 'projectile-find-file)
-      )
+    :ensure t
+    :config
+    (define-key evil-normal-state-map (kbd "C-p") 'projectile-find-file)
+    )
+#+END_SRC
 
+* Org-mode
+** General Org Config
+Just configuring org mode general settings such as export, evaluating code blocks, hide trailing stars, etc.
+#+BEGIN_SRC emacs-lisp
   (use-package org
-      :config
-      (progn
+    :config
+    (progn
       (defun imalison:org-inline-css-hook (exporter)
-          "Insert custom inline css to automatically set the
-  background of code to whatever theme I'm using's background"
-          (when (eq exporter 'html)
+        "Insert custom inline css to automatically set the
+    background of code to whatever theme I'm using's background"
+        (when (eq exporter 'html)
           (let* ((my-pre-bg (face-background 'default))
-                  (my-pre-fg (face-foreground 'default)))
-              (setq
-              org-html-head-extra
-              (concat
+                 (my-pre-fg (face-foreground 'default)))
+            (setq
+             org-html-head-extra
+             (concat
               org-html-head-extra
               (format "<style type=\"text/css\">\n pre.src {background-color: #2c2c36; color: #959dcb;} pre.example { background-color: #2c2c36; color: #959dcb;} </style>\n"
                       my-pre-bg my-pre-fg))))))
@@ -171,37 +192,28 @@ being able to swiftly move through code like in Vim.
       (add-hook 'org-export-before-processing-hook 'imalison:org-inline-css-hook)))
 
   (add-to-list 'org-structure-template-alist
-                  '("el" "#+BEGIN_SRC emacs-lisp\n?\n#+END_SRC"))
+               '("el" "#+BEGIN_SRC emacs-lisp\n?\n#+END_SRC"))
 
   (setq org-src-fontify-natively t)
 
   (defconst lisp--prettify-symbols-alist
-      '(("lambda"  . ?λ)))
+    '(("lambda"  . ?λ)))
 
   (global-prettify-symbols-mode +1)
 
-  (use-package base16-theme
-      :ensure t
-      :config
-      (setq base16-theme-256-color-source "terminal")
-      (load-theme 'base16-material)
-      )
-
-
-  (global-prettify-symbols-mode 1)
   (org-babel-do-load-languages
-      'org-babel-load-languages
-      '(
-      (emacs-lisp . t)
-      (python . t)
-      ))
+   'org-babel-load-languages
+   '(
+     (emacs-lisp . t)
+     (python . t)
+     ))
 
   (use-package org-bullets
-      :init
-      (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
-      (setq org-bullets-bullet-list '("◉"))
-      :config
-      )
+    :init
+    (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+    (setq org-bullets-bullet-list '("◉"))
+    :config
+    )
 
   (add-hook 'scheme-mode-hook 'my-pretty-lambda)
   (setq org-hide-leading-stars t)
@@ -212,7 +224,7 @@ being able to swiftly move through code like in Vim.
   (setq org-src-window-setup 'current-window)
 
   (add-to-list 'org-structure-template-alist
-                  '("el" "#+BEGIN_SRC emacs-lisp\n?\n#+END_SRC"))
+               '("el" "#+BEGIN_SRC emacs-lisp\n?\n#+END_SRC"))
 
   (setq org-confirm-babel-evaluate nil)
   (setq org-export-with-smart-quotes t)
@@ -220,77 +232,43 @@ being able to swiftly move through code like in Vim.
   ;;(add-hook 'org-mode-hook 'flyspell-mode)
 
   (use-package htmlize
-      :ensure t
-      )
+    :ensure t
+    )
+#+END_SRC
+** GTD (Getting Things Done)
+Getting Things Done is a time management method, in short there are several lists:
+1. inbox.org: All TODO's go to here first and it is constantly being refiled to other lists
+2. gtd.org: All projects get sent here, these are usually lists with tags, contexts and multiple items.
+3. someday.org: Items that are waiting on some other items, or don't have a fixed deadline go here.
+4. tickler.org: Itmes with fixed deadlines get sent here, these are usually appointments, e.g: Dentist appointment
 
-  (use-package centered-cursor-mode
-      :ensure t
-      :config
-      (global-centered-cursor-mode +1)
-      )
-
-  (use-package aggressive-indent
-      :ensure t
-      :config
-      (add-hook 'emacs-lisp-mode-hook #'aggressive-indent-mode)
-      (add-hook 'css-mode-hook #'aggressive-indent-mode)
-      (add-to-list 'aggressive-indent-excluded-modes 'html-mode)
-      )
-
-  ;; (use-package material-theme
-  ;;   :config
-  ;;   :ensure t)
-  ;; (load-theme 'material t)
-
-  (use-package undo-tree
-      :ensure t
-      :config
-      (setq undo-tree-auto-save-history t)
-      )
-
-  (use-package powerline
-      :ensure t
-      :config
-      (set-face-background 'powerline-inactive1 "color-18")
-      (set-face-background 'powerline-inactive2 "color-18")
-      (set-face-background 'powerline-active2 "color-18")
-      (powerline-center-evil-theme)
-
-      ;; (use-package flycheck-color-mode-line
-      ;;              :ensure t
-      ;;              :config
-      ;;              (add-hook 'flycheck-mode-hook 'flycheck-color-mode-line-mode))
-      )
-
-  (setq org-directory "~/Dropbox/org")
-
+#+BEGIN_SRC emacs-lisp
   (defun org-file-path (filename)
-      "Return the absolute address of an org file, given its relative name."
-      (concat (file-name-as-directory org-directory) filename))
+    "Return the absolute address of an org file, given its relative name."
+    (concat (file-name-as-directory org-directory) filename))
 
-  (setq org-inbox-file "~/Dropbox/inbox.org")
-  (setq org-index-file (org-file-path "index.org"))
+  (setq org-directory "~/org")
+  (setq org-inbox-file "~/org/inbox.org")
   (setq org-archive-location
-          (concat (org-file-path "archive.org") "::* From %s"))
-
-  (defun hrs/copy-tasks-from-inbox ()
-      (when (file-exists-p org-inbox-file)
-      (save-excursion
-          (find-file org-index-file)
-          (goto-char (point-max))
-          (insert-file-contents org-inbox-file)
-          (delete-file org-inbox-file))))
-
-  (setq org-agenda-files (list org-index-file))
-
-  (defun hrs/mark-done-and-archive ()
-      "Mark the state of an org-mode item as DONE and archive it."
-      (interactive)
-      (org-todo 'done)
-      (org-archive-subtree))
-
+        (concat (org-file-path "archive.org") "::* From %s"))
+#+END_SRC
+*** Key bindings
+Some keybindings for opening inbox, storing links, opening agenda, capturing some items based on the templates, and archiving a todo item
+#+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "C-c i") 'hrs/open-inbox-file)
+  (global-set-key (kbd "C-c l") 'org-store-link)
+  (global-set-key (kbd "C-c a") 'org-agenda)
+  (global-set-key (kbd "C-c c") 'org-capture)
   (define-key org-mode-map (kbd "C-c C-x C-s") 'hrs/mark-done-and-archive)
-  (setq org-log-done 'time)
+#+END_SRC
+*** General org configuration
+Just some general settings as setting the org-templates, agenda files, and refile targets.
+#+BEGIN_SRC emacs-lisp
+  (setq org-agenda-files '("~/org/inbox.org"
+                           "~/org/gtd.org"
+                           "~/org/tickler.org"
+                           "~/org/someday.org"
+                           ))
 
   (setq org-capture-templates '(("t" "Todo [inbox]" entry
                                  (file+headline "~/org/inbox.org" "Tasks")
@@ -299,32 +277,66 @@ being able to swiftly move through code like in Vim.
                                  (file+headline "~/org/tickler.org" "Tickler")
                                  "* %i%? \n %U")))
 
+  (setq org-refile-targets '(("~/org/gtd.org" :maxlevel . 3)
+                             ("~/org/someday.org" :level . 1)
+                             ("~/org/tickler.org" :maxlevel . 2)))
+
+  (setq org-outline-path-complete-in-steps nil)         ; Refile in a single go
+  (setq org-refile-use-outline-path t)                  ; Show full paths for refiling
+
+  (defun hrs/mark-done-and-archive ()
+    "Mark the state of an org-mode item as DONE and archive it."
+    (interactive)
+    (org-todo 'done)
+    (org-archive-subtree))
+
+  (setq org-log-done 'time)
+
   (add-hook 'org-capture-mode-hook 'evil-insert-state)
 
-  (setq org-refile-use-outline-path t)
-  (setq org-outline-path-complete-in-steps nil)
-
-  (define-key global-map "\C-cl" 'org-store-link)
-  (define-key global-map "\C-ca" 'org-agenda)
-  (define-key global-map "\C-cc" 'org-capture)
-
-  (defun hrs/open-index-file ()
+  (defun hrs/open-inbox-file ()
     "Open the master org TODO list."
     (interactive)
-    (hrs/copy-tasks-from-inbox)
-    (find-file org-index-file)
+    (find-file org-inbox-file)
     (flycheck-mode -1)
     (end-of-buffer))
 
-  (global-set-key (kbd "C-c i") 'hrs/open-index-file)
+#+END_SRC
 
-  (defun org-capture-todo ()
-      (interactive)
-      (org-capture :keys "t"))
+#+BEGIN_SRC emacs-lisp
+  (use-package centered-cursor-mode
+    :ensure t
+    :config
+    (global-centered-cursor-mode +1)
+    )
 
-  (global-set-key (kbd "M-n") 'org-capture-todo)
-  (add-hook 'gfm-mode-hook
-              (lambda () (local-set-key (kbd "M-n") 'org-capture-todo)))
-  (add-hook 'haskell-mode-hook
-              (lambda () (local-set-key (kbd "M-n") 'org-capture-todo)))
+  (use-package aggressive-indent
+    :ensure t
+    :config
+    (add-hook 'emacs-lisp-mode-hook #'aggressive-indent-mode)
+    (add-hook 'css-mode-hook #'aggressive-indent-mode)
+    (add-to-list 'aggressive-indent-excluded-modes 'html-mode)
+    )
+
+
+  (use-package undo-tree
+    :ensure t
+    :config
+    (setq undo-tree-auto-save-history t)
+    )
+
+  (use-package powerline
+    :ensure t
+    :config
+    (set-face-background 'powerline-inactive1 "color-18")
+    (set-face-background 'powerline-inactive2 "color-18")
+    (set-face-background 'powerline-active2 "color-18")
+    (powerline-center-evil-theme)
+
+    ;; (use-package flycheck-color-mode-line
+    ;;              :ensure t
+    ;;              :config
+    ;;              (add-hook 'flycheck-mode-hook 'flycheck-color-mode-line-mode))
+    )
+
 #+END_SRC
