@@ -242,7 +242,10 @@ Getting Things Done is a time management method, in short there are several list
 3. someday.org: Items that are waiting on some other items, or don't have a fixed deadline go here.
 4. tickler.org: Itmes with fixed deadlines get sent here, these are usually appointments, e.g: Dentist appointment
 
+For a more detailed explanation go [[https://emacs.cafe/emacs/orgmode/gtd/2017/06/30/orgmode-gtd.html][here]]
+
 #+BEGIN_SRC emacs-lisp
+(setq org-hierarchical-todo-statistics nil)
   (defun org-file-path (filename)
     "Return the absolute address of an org file, given its relative name."
     (concat (file-name-as-directory org-directory) filename))
@@ -256,7 +259,7 @@ Getting Things Done is a time management method, in short there are several list
 Some keybindings for opening inbox, storing links, opening agenda, capturing some items based on the templates, and archiving a todo item
 #+BEGIN_SRC emacs-lisp
   (global-set-key (kbd "C-c i") 'hrs/open-inbox-file)
-  (global-set-key (kbd "C-c l") 'org-store-link)
+  (global-set-key (kbd "C-c l") 'org-store-link) ;;Store current file path link
   (global-set-key (kbd "C-c a") 'org-agenda)
   (global-set-key (kbd "C-c c") 'org-capture)
   (define-key org-mode-map (kbd "C-c C-x C-s") 'hrs/mark-done-and-archive)
@@ -272,10 +275,18 @@ Just some general settings as setting the org-templates, agenda files, and refil
 
   (setq org-capture-templates '(("t" "Todo [inbox]" entry
                                  (file+headline "~/org/inbox.org" "Tasks")
-                                 "* TODO %i%?")
+                                 "* TODO %i%? [/]")
                                 ("T" "Tickler" entry
                                  (file+headline "~/org/tickler.org" "Tickler")
                                  "* %i%? \n %U")))
+  (setq org-todo-keywords '((sequence "TODO(t)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(c)")))
+
+  (setq org-tag-alist '(("@work" . ?w)
+                        ("@home" . ?h)
+                        ("@japanese" . ?j)
+                        ("@download" . ?d)
+                        ("@learning" . ?l)
+                        ))
 
   (setq org-refile-targets '(("~/org/gtd.org" :maxlevel . 3)
                              ("~/org/someday.org" :level . 1)
@@ -341,3 +352,6 @@ Just some general settings as setting the org-templates, agenda files, and refil
     )
 
 #+END_SRC
+
+#+RESULTS:
+: t
