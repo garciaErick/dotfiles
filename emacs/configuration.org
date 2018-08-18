@@ -31,11 +31,11 @@ Just setting some global settings such as use camelCase, line numbers, highlight
 (global-linum-mode t)
 (setq linum-format "%4d \u2502 ")
 (global-hl-line-mode 1)
-(visual-line-mode 1)
+(global-visual-line-mode 1)
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
-(setq frame-title-format '((:eval (projectile-project-name))))
+(setq frame-title-format '((:eval (helm-projectile-project-name))))
 #+END_SRC
 
 ** Indentation settings
@@ -65,10 +65,10 @@ I like to use tabs that are 2 spaces in width
 ** Proxy
 Some proxy settings to be used when needed, comment out if no proxy is needed
 #+BEGIN_SRC emacs-lisp
-(setq url-proxy-services
- '(("no_proxy" . "^\\(localhost\\|10\\..*\\|192\\.168\\..*\\)")
-   ("http" . "web-proxy.houston.hpecorp.net:8080")
-   ))
+;;(setq url-proxy-services
+;; '(("no_proxy" . "^\\(localhost\\|10\\..*\\|192\\.168\\..*\\)")
+;;   ("http" . "web-proxy.houston.hpecorp.net:8080")
+;;   ))
 #+END_SRC
 
 ** Melpa
@@ -137,6 +137,7 @@ being able to swiftly move through code like in Vim.
     :ensure t
     :config
     (evil-mode)
+    (define-key evil-motion-state-map " " nil) ;; use SPC as prefix key
     )
 
   (defun highlight-remove-all ()
@@ -160,12 +161,14 @@ being able to swiftly move through code like in Vim.
   (use-package evil-surround
     :ensure t
     :config
-    (global-evil-surround-mode 1))
+    (global-evil-surround-mode 1)
+    )
 
-  (use-package projectile
+  (use-package evil-embrace
     :ensure t
     :config
-    (define-key evil-normal-state-map (kbd "C-p") 'projectile-find-file)
+    (evil-embrace-enable-evil-surround-integration)
+    (define-key evil-motion-state-map (kbd "SPC e") 'embrace-commander)
     )
 #+END_SRC
 
@@ -262,9 +265,10 @@ Some keybindings for opening inbox, storing links, opening agenda, capturing som
   (global-set-key (kbd "C-c l") 'org-store-link) ;;Store current file path link
   (global-set-key (kbd "C-c a") 'org-agenda)
   (global-set-key (kbd "C-c c") 'org-capture)
+  (global-set-key (kbd "C-c r") 'org-update-statistics-cookies)
   (define-key org-mode-map (kbd "C-c C-x C-s") 'hrs/mark-done-and-archive)
 #+END_SRC
-*** General org configuration
+*** QUOTE General org configuration
 Just some general settings as setting the org-templates, agenda files, and refile targets.
 #+BEGIN_SRC emacs-lisp
   (setq org-agenda-files '("~/org/inbox.org"
@@ -309,49 +313,119 @@ Just some general settings as setting the org-templates, agenda files, and refil
     "Open the master org TODO list."
     (interactive)
     (find-file org-inbox-file)
-    (flycheck-mode -1)
+    ;; (flycheck-mode -1)
     (end-of-buffer))
 
 #+END_SRC
 
 * Other Packages
 #+BEGIN_SRC emacs-lisp
-  (use-package centered-cursor-mode
-    :ensure t
-    :config
-    (global-centered-cursor-mode +1)
-    )
 
-  (use-package aggressive-indent
-    :ensure t
-    :config
-    (add-hook 'emacs-lisp-mode-hook #'aggressive-indent-mode)
-    (add-hook 'css-mode-hook #'aggressive-indent-mode)
-    (add-to-list 'aggressive-indent-excluded-modes 'html-mode)
-    )
+   (use-package centered-cursor-mode
+     :ensure t
+     :config
+     (global-centered-cursor-mode +1)
+     )
+
+   (use-package aggressive-indent
+     :ensure t
+     :config
+     (add-hook 'emacs-lisp-mode-hook #'aggressive-indent-mode)
+     (add-hook 'css-mode-hook #'aggressive-indent-mode)
+     (add-to-list 'aggressive-indent-excluded-modes 'html-mode)
+     )
 
 
-  (use-package undo-tree
-    :ensure t
-    :config
-    (setq undo-tree-auto-save-history t)
-    )
+   (use-package undo-tree
+     :ensure t
+     :config
+     (setq undo-tree-auto-save-history t)
+     )
 
-  (use-package powerline
-    :ensure t
-    :config
-    (set-face-background 'powerline-inactive1 "color-18")
-    (set-face-background 'powerline-inactive2 "color-18")
-    (set-face-background 'powerline-active2 "color-18")
-    (powerline-center-evil-theme)
+   (use-package flycheck
+     :ensure t
+     :init (global-flycheck-mode)
+     :config
+     (add-hook 'after-init-hook #'global-flycheck-mode)
+     (setq flycheck-check-syntax-automatically '(save mode-enabled))
+     (setq flycheck-checkers (delq 'emacs-lisp-checkdoc flycheck-checkers))
+     (setq flycheck-checkers (delq 'html-tidy flycheck-checkers))
+     (setq flycheck-standard-error-navigation nil)
+     )
 
-    ;; (use-package flycheck-color-mode-line
-    ;;              :ensure t
-    ;;              :config
-    ;;              (add-hook 'flycheck-mode-hook 'flycheck-color-mode-line-mode))
-    )
+   (use-package powerline
+     :ensure t
+     :config
+     (set-face-background 'powerline-inactive1 "color-18")
+     (set-face-background 'powerline-inactive2 "color-18")
+     (set-face-background 'powerline-active2 "color-18")
+     (powerline-center-evil-theme)
 
+     (use-package flycheck-color-mode-line
+       :ensure t
+       :config
+       (add-hook 'flycheck-mode-hook 'flycheck-color-mode-line-mode))
+     )
+
+   (use-package expand-region
+     :ensure t
+     :config
+     (global-set-key (kbd "C-c w") 'er/expand-region)
+     (define-key evil-motion-state-map (kbd "SPC w") 'er/expand-region)
+     )
+
+   ;; Change colors for this shit
+   (use-package company
+     :ensure t
+     :config
+     (add-hook 'after-init-hook 'global-company-mode)
+     (global-set-key "\t" 'company-complete-common)
+     (setq company-idle-delay 0)
+     (set-face-background 'company-tooltip "color-19")
+     (set-face-background 'company-scrollbar-bg "brightblack")
+     (set-face-background 'company-scrollbar-fg "color-18")
+     (set-face-background 'company-tooltip-selection "color-18")
+     )
+
+   (use-package helm
+     :ensure t
+     :config
+     (global-set-key (kbd "M-x") #'helm-M-x)
+     (global-set-key (kbd "C-x r b") #'helm-filtered-bookmarks)
+     (global-set-key (kbd "C-x C-f") #'helm-find-files)
+     (helm-mode 1)
+     )
+
+   (use-package helm-projectile
+     :ensure t
+     :config
+     (helm-projectile-on)
+     (define-key evil-normal-state-map (kbd "C-p") 'helm-projectile-find-file)
+     (set-face-background 'helm-selection "color-19")
+     (set-face-background 'helm-source-header "color-18")
+     (set-face-foreground 'helm-source-header "green")
+     )
+
+  ;; Determine the specific system type.
+  ;; Emacs variable system-type doesn't yet have a "wsl/linux" value,
+  ;; so I'm front-ending system-type with my variable: sysTypeSpecific.
+  ;; I'm no elisp hacker, so I'm diverging from the elisp naming convention
+  ;; to ensure that I'm not stepping on any pre-existing variable.
+  (setq-default sysTypeSpecific  system-type) ;; get the system-type value
+
+  (cond
+   ;; If type is "gnu/linux", override to "wsl/linux" if it's WSL.
+   ((eq sysTypeSpecific 'gnu/linux)
+    (when (string-match "Linux.*Microsoft.*Linux"
+                        (shell-command-to-string "uname -a"))
+
+      (setq-default sysTypeSpecific "wsl/linux") ;; for later use.
+      (setq
+       cmdExeBin"/mnt/c/Windows/System32/cmd.exe"
+       cmdExeArgs '("/c" "start" "") )
+      (setq
+       browse-url-generic-program  cmdExeBin
+       browse-url-generic-args     cmdExeArgs
+       browse-url-browser-function 'browse-url-generic)
+      )))
 #+END_SRC
-
-#+RESULTS:
-: t
