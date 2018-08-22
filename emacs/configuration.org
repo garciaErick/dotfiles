@@ -1,4 +1,4 @@
-#+TITLE: Emacs Configuration
+#+Title: Emacs Configuration
 #+AUTHOR: Erick Garcia
 #+EMAIL: me@erick-garcia.com
 #+OPTIONS: toc:nil num:nil
@@ -24,14 +24,16 @@ user-mail-address "me@erick-garcia.com"
 Just setting some global settings such as use camelCase, line numbers, highlight current line, etc...
 
 #+BEGIN_SRC emacs-lisp
-(global-subword-mode 1)
-(menu-bar-mode -1)
-(xterm-mouse-mode 1)
-(savehist-mode 1)
-(global-linum-mode t)
-(setq linum-format "%4d \u2502 ")
-(global-hl-line-mode 1)
-(global-visual-line-mode 1)
+  (global-subword-mode 1)
+  (menu-bar-mode -1)
+  (xterm-mouse-mode 1)
+  (savehist-mode 1)
+  (global-linum-mode t)
+  (setq linum-format "%4d \u2502 ")
+  (setq linum-relative-current-symbol "")
+  (global-hl-line-mode 1)
+  (global-visual-line-mode 1)
+  (electric-pair-mode 1)
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
@@ -48,17 +50,18 @@ I like to use tabs that are 2 spaces in width
 
 ** Custom color settings
 #+BEGIN_SRC emacs-lisp
-(require 'hi-lock)
-(set-face-background 'hl-line "color-19")
-(set-face-background 'linum "black")
-(set-face-attribute 'region nil :background "color-18")
-(set-face-background 'mode-line "color-18")
-(set-face-background 'mode-line-inactive "color-18")
-(set-face-background 'isearch "color-18")
-(set-face-foreground 'isearch "white")
-(set-face-background 'hi-yellow "color-18")
-(set-face-foreground 'hi-yellow "white")
-(set-face-foreground 'highlight "white")
+  (require 'hi-lock)
+  (set-face-background 'hl-line "color-19")
+  (set-face-background 'linum "black")
+  (set-face-attribute 'region nil :background "color-18")
+  (set-face-background 'mode-line "color-18")
+  (set-face-background 'mode-line-inactive "color-18")
+  (set-face-background 'isearch "color-18")
+  (set-face-foreground 'isearch "white")
+  (set-face-background 'hi-yellow "color-18")
+  (set-face-foreground 'hi-yellow "white")
+  (set-face-foreground 'highlight "white")
+  (set-face-background 'show-paren-match "brightblack")
 #+END_SRC
 
 * Package Settings
@@ -138,38 +141,41 @@ being able to swiftly move through code like in Vim.
     :config
     (evil-mode)
     (define-key evil-motion-state-map " " nil) ;; use SPC as prefix key
+    ;; Navigating wrapped lines
+    (define-key evil-normal-state-map (kbd "j") 'evil-next-visual-line)
+    (define-key evil-normal-state-map (kbd "k") 'evil-previous-visual-line)
     )
 
-  (defun highlight-remove-all ()
-    (interactive)
-    (hi-lock-mode -1)
-    (hi-lock-mode 1))
+    (defun highlight-remove-all ()
+      (interactive)
+      (hi-lock-mode -1)
+      (hi-lock-mode 1))
 
-  (defun search-highlight-persist ()
-    (highlight-regexp (car-safe (if isearch-regexp
-                                    regexp-search-ring
-                                  search-ring)) (facep 'hi-yellow)))
+    (defun search-highlight-persist ()
+      (highlight-regexp (car-safe (if isearch-regexp
+                                      regexp-search-ring
+                                    search-ring)) (facep 'hi-yellow)))
 
-  (defadvice isearch-exit (after isearch-hl-persist activate)
-    (highlight-remove-all)
-    (search-highlight-persist))
+    (defadvice isearch-exit (after isearch-hl-persist activate)
+      (highlight-remove-all)
+      (search-highlight-persist))
 
-  (defadvice evil-search-incrementally (after evil-search-hl-persist activate)
-    (highlight-remove-all)
-    (search-highlight-persist))
+    (defadvice evil-search-incrementally (after evil-search-hl-persist activate)
+      (highlight-remove-all)
+      (search-highlight-persist))
 
-  (use-package evil-surround
-    :ensure t
-    :config
-    (global-evil-surround-mode 1)
-    )
+    (use-package evil-surround
+      :ensure t
+      :config
+      (global-evil-surround-mode 1)
+      )
 
-  (use-package evil-embrace
-    :ensure t
-    :config
-    (evil-embrace-enable-evil-surround-integration)
-    (define-key evil-motion-state-map (kbd "SPC e") 'embrace-commander)
-    )
+    (use-package evil-embrace
+      :ensure t
+      :config
+      (evil-embrace-enable-evil-surround-integration)
+      (define-key evil-motion-state-map (kbd "SPC e") 'embrace-commander)
+      )
 #+END_SRC
 
 * Org-mode
@@ -286,7 +292,7 @@ Just some general settings as setting the org-templates, agenda files, and refil
   (setq org-todo-keywords '((sequence "TODO(t)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(c)")))
 
   (setq org-tag-alist '(("@work" . ?w)
-                        ("@home" . ?h)
+                        ("@personal" . ?h)
                         ("@japanese" . ?j)
                         ("@download" . ?d)
                         ("@learning" . ?l)
@@ -320,91 +326,90 @@ Just some general settings as setting the org-templates, agenda files, and refil
 
 * Other Packages
 #+BEGIN_SRC emacs-lisp
+  (use-package centered-cursor-mode
+    :ensure t
+    :config
+    (global-centered-cursor-mode +1)
+    )
 
-   (use-package centered-cursor-mode
-     :ensure t
-     :config
-     (global-centered-cursor-mode +1)
-     )
-
-   (use-package aggressive-indent
-     :ensure t
-     :config
-     (add-hook 'emacs-lisp-mode-hook #'aggressive-indent-mode)
-     (add-hook 'css-mode-hook #'aggressive-indent-mode)
-     (add-to-list 'aggressive-indent-excluded-modes 'html-mode)
-     )
+  (use-package aggressive-indent
+    :ensure t
+    :config
+    (add-hook 'emacs-lisp-mode-hook #'aggressive-indent-mode)
+    (add-hook 'css-mode-hook #'aggressive-indent-mode)
+    (add-to-list 'aggressive-indent-excluded-modes 'html-mode)
+    )
 
 
-   (use-package undo-tree
-     :ensure t
-     :config
-     (setq undo-tree-auto-save-history t)
-     )
+  (use-package undo-tree
+    :ensure t
+    :config
+    (setq undo-tree-auto-save-history t)
+    )
 
-   (use-package flycheck
-     :ensure t
-     :init (global-flycheck-mode)
-     :config
-     (add-hook 'after-init-hook #'global-flycheck-mode)
-     (setq flycheck-check-syntax-automatically '(save mode-enabled))
-     (setq flycheck-checkers (delq 'emacs-lisp-checkdoc flycheck-checkers))
-     (setq flycheck-checkers (delq 'html-tidy flycheck-checkers))
-     (setq flycheck-standard-error-navigation nil)
-     )
+  (use-package flycheck
+    :ensure t
+    :init (global-flycheck-mode)
+    :config
+    (add-hook 'after-init-hook #'global-flycheck-mode)
+    (setq flycheck-check-syntax-automatically '(save mode-enabled))
+    (setq flycheck-checkers (delq 'emacs-lisp-checkdoc flycheck-checkers))
+    (setq flycheck-checkers (delq 'html-tidy flycheck-checkers))
+    (setq flycheck-standard-error-navigation nil)
+    )
 
-   (use-package powerline
-     :ensure t
-     :config
-     (set-face-background 'powerline-inactive1 "color-18")
-     (set-face-background 'powerline-inactive2 "color-18")
-     (set-face-background 'powerline-active2 "color-18")
-     (powerline-center-evil-theme)
+  (use-package powerline
+    :ensure t
+    :config
+    (set-face-background 'powerline-inactive1 "color-18")
+    (set-face-background 'powerline-inactive2 "color-18")
+    (set-face-background 'powerline-active2 "color-18")
+    (powerline-center-evil-theme)
 
-     (use-package flycheck-color-mode-line
-       :ensure t
-       :config
-       (add-hook 'flycheck-mode-hook 'flycheck-color-mode-line-mode))
-     )
+    (use-package flycheck-color-mode-line
+      :ensure t
+      :config
+      (add-hook 'flycheck-mode-hook 'flycheck-color-mode-line-mode))
+    )
 
-   (use-package expand-region
-     :ensure t
-     :config
-     (global-set-key (kbd "C-c w") 'er/expand-region)
-     (define-key evil-motion-state-map (kbd "SPC w") 'er/expand-region)
-     )
+  (use-package expand-region
+    :ensure t
+    :config
+    (global-set-key (kbd "C-c w") 'er/expand-region)
+    (define-key evil-motion-state-map (kbd "SPC w") 'er/expand-region)
+    )
 
-   ;; Change colors for this shit
-   (use-package company
-     :ensure t
-     :config
-     (add-hook 'after-init-hook 'global-company-mode)
-     (global-set-key "\t" 'company-complete-common)
-     (setq company-idle-delay 0)
-     (set-face-background 'company-tooltip "color-19")
-     (set-face-background 'company-scrollbar-bg "brightblack")
-     (set-face-background 'company-scrollbar-fg "color-18")
-     (set-face-background 'company-tooltip-selection "color-18")
-     )
+  ;; Change colors for this shit
+  (use-package company
+    :ensure t
+    :config
+    (add-hook 'after-init-hook 'global-company-mode)
+    (global-set-key "\t" 'company-complete-common)
+    (setq company-idle-delay 0)
+    (set-face-background 'company-tooltip "color-19")
+    (set-face-background 'company-scrollbar-bg "brightblack")
+    (set-face-background 'company-scrollbar-fg "color-18")
+    (set-face-background 'company-tooltip-selection "color-18")
+    )
 
-   (use-package helm
-     :ensure t
-     :config
-     (global-set-key (kbd "M-x") #'helm-M-x)
-     (global-set-key (kbd "C-x r b") #'helm-filtered-bookmarks)
-     (global-set-key (kbd "C-x C-f") #'helm-find-files)
-     (helm-mode 1)
-     )
+  (use-package helm
+    :ensure t
+    :config
+    (global-set-key (kbd "M-x") #'helm-M-x)
+    (global-set-key (kbd "C-x r b") #'helm-filtered-bookmarks)
+    (global-set-key (kbd "C-x C-f") #'helm-find-files)
+    (helm-mode 1)
+    )
 
-   (use-package helm-projectile
-     :ensure t
-     :config
-     (helm-projectile-on)
-     (define-key evil-normal-state-map (kbd "C-p") 'helm-projectile-find-file)
-     (set-face-background 'helm-selection "color-19")
-     (set-face-background 'helm-source-header "color-18")
-     (set-face-foreground 'helm-source-header "green")
-     )
+  (use-package helm-projectile
+    :ensure t
+    :config
+    (helm-projectile-on)
+    (define-key evil-normal-state-map (kbd "C-p") 'helm-projectile-find-file)
+    (set-face-background 'helm-selection "color-19")
+    (set-face-background 'helm-source-header "color-18")
+    (set-face-foreground 'helm-source-header "green")
+    )
 
   ;; Determine the specific system type.
   ;; Emacs variable system-type doesn't yet have a "wsl/linux" value,
@@ -428,4 +433,16 @@ Just some general settings as setting the org-templates, agenda files, and refil
        browse-url-generic-args     cmdExeArgs
        browse-url-browser-function 'browse-url-generic)
       )))
+
+  (use-package omnisharp
+    :ensure t
+    :config
+    (add-hook 'csharp-mode-hook 'omnisharp-mode)
+    )
+
+  (eval-after-load
+      'company
+    '(add-to-list 'company-backends 'company-omnisharp))
+
+    (add-hook 'csharp-mode-hook #'company-mode)
 #+END_SRC
