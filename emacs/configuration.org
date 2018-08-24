@@ -280,7 +280,7 @@ Just some general settings as setting the org-templates, agenda files, and refil
   (setq org-agenda-files '("~/org/inbox.org"
                            "~/org/gtd.org"
                            "~/org/tickler.org"
-                           "~/org/someday.org"
+                           ;; "~/org/someday.org"
                            ))
 
   (setq org-capture-templates '(("t" "Todo [inbox]" entry
@@ -292,7 +292,7 @@ Just some general settings as setting the org-templates, agenda files, and refil
   (setq org-todo-keywords '((sequence "TODO(t)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(c)")))
 
   (setq org-tag-alist '(("@work" . ?w)
-                        ("@personal" . ?h)
+                        ("@personal" . ?p)
                         ("@japanese" . ?j)
                         ("@download" . ?d)
                         ("@learning" . ?l)

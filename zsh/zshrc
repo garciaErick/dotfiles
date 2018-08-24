@@ -1,6 +1,8 @@
 export ZSH=~/.oh-my-zsh
 export LS_COLORS='ow=01;36;40'
 
+export winUser=$(cmd.exe /c echo %USERNAME%)
+
 plugins=(git)
 
 export TERM=xterm-256color
@@ -19,7 +21,6 @@ alias vimrc="vim ~/.vimrc"
 alias emacsrc="emacs ~/.emacs.d/configuration.org"
 alias tmuxrc="vim ~/.tmux.conf && tmux source-file ~/.tmux.conf"
 alias reloadzshrc='. ~/.zshrc'
-
 # Aliases for Windows native paths
 alias subl='/mnt/c/Program\ Files/Sublime\ Text\ 3/subl.exe'
 alias VSCODE_PATH='/mnt/c/Program\ Files/Microsoft\ VS\ Code/Code.exe'
