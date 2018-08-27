@@ -62,4 +62,9 @@ function vscode (){
 
 cd
 
-if [ "$TMUX" = "" ]; then tmux; fi
+if [ "$TMUX" = "" ]; then 
+  tmux new-session -s "tmuxsession" -n emacs -d "emacs ~/.emacs.d/configuration.org"
+  tmux new-window -t "tmuxsession" zsh
+  tmux select-window -t "tmuxsession"
+  tmux -2 attach-session -t "tmuxsession"
+fi
