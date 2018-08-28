@@ -16,11 +16,11 @@ source $ZSH/oh-my-zsh.sh
 BASE16_SHELL="$HOME/.config/base16-shell/base16-material-palenight-darker.sh"
 [[ -s $BASE16_SHELL  ]] && source $BASE16_SHELL
 
-alias zshrc="vim ~/.zshrc && . ~/.zshrc"
-alias vimrc="vim ~/.vimrc"
-alias emacsrc="emacs ~/.emacs.d/configuration.org"
+alias ecc="emacsclient -c"
+alias zshrc="ecc ~/.zshrc && . ~/.zshrc"
+alias vimrc="ecc ~/.vimrc"
+alias emacsrc="ecc ~/.emacs.d/configuration.org"
 alias tmuxrc="vim ~/.tmux.conf && tmux source-file ~/.tmux.conf"
-alias reloadzshrc='. ~/.zshrc'
 # Aliases for Windows native paths
 alias subl='/mnt/c/Program\ Files/Sublime\ Text\ 3/subl.exe'
 alias VSCODE_PATH='/mnt/c/Program\ Files/Microsoft\ VS\ Code/Code.exe'
@@ -62,8 +62,8 @@ function vscode (){
 
 cd
 
-if [ "$TMUX" = "" ]; then 
-  tmux new-session -s "tmuxsession" -n emacs -d "emacs ~/.emacs.d/configuration.org"
+if [ "$TMUX" = "" ]; then
+  tmux new-session -s "tmuxsession" -n emacs -d "emacs --daemon"
   tmux new-window -t "tmuxsession" zsh
   tmux select-window -t "tmuxsession"
   tmux -2 attach-session -t "tmuxsession"

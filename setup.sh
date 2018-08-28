@@ -49,4 +49,5 @@ emacsDir=$cwd/emacs
 
 echo "Setting up Emacs configuration"
 ln -sf $emacsDir ~/.emacs.d
+mkdir -p ~/.emacs.d/auto-save
 echo "Done \n"

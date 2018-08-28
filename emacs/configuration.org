@@ -4,6 +4,11 @@
 #+OPTIONS: toc:nil num:nil
 
 * General Configuration
+** Start Emacs server
+In order for faster emacs interaction, we will start a emacs server and use emacsclient -c to connect to that server
+#+BEGIN_SRC emacs-lisp
+  (server-start)
+#+END_SRC
 ** Sensible defaults
 These are some defaults everyone can agree with, [[https://github.com/hrs/sensible-defaults.el][sensible-defaults.el]], by Harry R. Shwarts.
 #+BEGIN_SRC emacs-lisp
@@ -68,10 +73,10 @@ I like to use tabs that are 2 spaces in width
 ** Proxy
 Some proxy settings to be used when needed, comment out if no proxy is needed
 #+BEGIN_SRC emacs-lisp
-;;(setq url-proxy-services
-;; '(("no_proxy" . "^\\(localhost\\|10\\..*\\|192\\.168\\..*\\)")
-;;   ("http" . "web-proxy.houston.hpecorp.net:8080")
-;;   ))
+(setq url-proxy-services
+ '(("no_proxy" . "^\\(localhost\\|10\\..*\\|192\\.168\\..*\\)")
+   ("http" . "web-proxy.houston.hpecorp.net:8080")
+   ))
 #+END_SRC
 
 ** Melpa
@@ -272,6 +277,7 @@ Some keybindings for opening inbox, storing links, opening agenda, capturing som
   (global-set-key (kbd "C-c a") 'org-agenda)
   (global-set-key (kbd "C-c c") 'org-capture)
   (global-set-key (kbd "C-c r") 'org-update-statistics-cookies)
+  (define-key evil-motion-state-map (kbd "SPC c") 'org-insert-todo-heading)
   (define-key org-mode-map (kbd "C-c C-x C-s") 'hrs/mark-done-and-archive)
 #+END_SRC
 *** QUOTE General org configuration
