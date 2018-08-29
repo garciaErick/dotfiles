@@ -1,4 +1,4 @@
-export ZSH=~/.oh-my-zsh
+ export ZSH=~/.oh-my-zsh
 export LS_COLORS='ow=01;36;40'
 
 export winUser=$(cmd.exe /c echo %USERNAME%)
@@ -16,10 +16,10 @@ source $ZSH/oh-my-zsh.sh
 BASE16_SHELL="$HOME/.config/base16-shell/base16-material-palenight-darker.sh"
 [[ -s $BASE16_SHELL  ]] && source $BASE16_SHELL
 
-alias ecc="emacsclient -c"
-alias zshrc="ecc ~/.zshrc && . ~/.zshrc"
-alias vimrc="ecc ~/.vimrc"
-alias emacsrc="ecc ~/.emacs.d/configuration.org"
+alias ec="emacsclient -c"
+alias zshrc="ec ~/.zshrc && . ~/.zshrc"
+alias vimrc="ec ~/.vimrc"
+alias emacsrc="ec ~/.emacs.d/configuration.org"
 alias tmuxrc="vim ~/.tmux.conf && tmux source-file ~/.tmux.conf"
 # Aliases for Windows native paths
 alias subl='/mnt/c/Program\ Files/Sublime\ Text\ 3/subl.exe'

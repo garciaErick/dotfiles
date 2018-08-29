@@ -11,7 +11,7 @@
  '(ansi-color-names-vector
 			(vector "#ffffff" "#f36c60" "#8bc34a" "#fff59d" "#4dd0e1" "#b39ddb" "#81d4fa" "#262626"))
  '(ansi-term-color-vector
-			[unspecified "#263238" "#f07178" "#c3e88d" "#ffcb6b" "#82aaff" "#c792ea" "#82aaff" "#eeffff"])
+			[unspecified "#263238" "#f07178" "#c3e88d" "#ffcb6b" "#82aaff" "#c792ea" "#82aaff" "#eeffff"] t)
  '(custom-safe-themes
 			(quote
 				("732b807b0543855541743429c9979ebfb363e27ec91e82f463c91e68c772f6e3" "a24c5b3c12d147da6cef80938dca1223b7c7f70f2f382b26308eba014dc4833a" "8db4b03b9ae654d4a57804286eb3e332725c84d7cdab38463cb6b97d5762ad26" "80930c775cef2a97f2305bae6737a1c736079fdcc62a6fdf7b55de669fbbcd13" "446cc97923e30dec43f10573ac085e384975d8a0c55159464ea6ef001f4a16ba" default)))
@@ -19,7 +19,7 @@
  '(hl-sexp-background-color "#121212")
  '(package-selected-packages
 			(quote
-				(omnisharp autopair avy helm-projectile flycheck helm evil-embrace company expand-region aggressive-indent centered-cursor-mode htmlize org-bullets base16-theme flycheck-color-mode-line powerline material-theme evil auto-compile use-package)))
+				(magit helm-swoop company-quickhelp omnisharp autopair avy helm-projectile flycheck helm evil-embrace company expand-region aggressive-indent centered-cursor-mode htmlize org-bullets base16-theme flycheck-color-mode-line powerline material-theme evil auto-compile use-package)))
  '(vc-annotate-background nil)
  '(vc-annotate-color-map
 			(quote

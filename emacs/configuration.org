@@ -385,7 +385,6 @@ Just some general settings as setting the org-templates, agenda files, and refil
     (define-key evil-motion-state-map (kbd "SPC w") 'er/expand-region)
     )
 
-  ;; Change colors for this shit
   (use-package company
     :ensure t
     :config
@@ -415,6 +414,13 @@ Just some general settings as setting the org-templates, agenda files, and refil
     (set-face-background 'helm-selection "color-19")
     (set-face-background 'helm-source-header "color-18")
     (set-face-foreground 'helm-source-header "green")
+    )
+
+  (use-package helm-swoop
+    :ensure t
+    :config
+    (define-key evil-normal-state-map (kbd "/") 'helm-swoop)
+    (define-key evil-motion-state-map (kbd "M-i") 'helm-swoop-from-evil-search)
     )
 
   ;; Determine the specific system type.
@@ -450,5 +456,11 @@ Just some general settings as setting the org-templates, agenda files, and refil
       'company
     '(add-to-list 'company-backends 'company-omnisharp))
 
-    (add-hook 'csharp-mode-hook #'company-mode)
+  (add-hook 'csharp-mode-hook #'company-mode)
+
+  (use-package magit
+    :ensure t
+    :config
+    (global-set-key (kbd "C-x g") 'magit-status)
+    )
 #+END_SRC
