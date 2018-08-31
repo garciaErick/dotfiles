@@ -19,7 +19,7 @@
  '(hl-sexp-background-color "#121212")
  '(package-selected-packages
 			(quote
-				(magit helm-swoop company-quickhelp omnisharp autopair avy helm-projectile flycheck helm evil-embrace company expand-region aggressive-indent centered-cursor-mode htmlize org-bullets base16-theme flycheck-color-mode-line powerline material-theme evil auto-compile use-package)))
+				(evil-magit magit helm-swoop company-quickhelp omnisharp autopair avy helm-projectile flycheck helm evil-embrace company expand-region aggressive-indent centered-cursor-mode htmlize org-bullets base16-theme flycheck-color-mode-line powerline material-theme evil auto-compile use-package)))
  '(vc-annotate-background nil)
  '(vc-annotate-color-map
 			(quote

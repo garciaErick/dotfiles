@@ -463,4 +463,9 @@ Just some general settings as setting the org-templates, agenda files, and refil
     :config
     (global-set-key (kbd "C-x g") 'magit-status)
     )
+
+  (use-package evil-magit
+    :ensure t
+    :config
+    )
 #+END_SRC
