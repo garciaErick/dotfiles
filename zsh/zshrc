@@ -35,6 +35,7 @@ alias pissh='sshpass -p "whiteWolf1!" ssh -o StrictHostKeyChecking=no pi@192.168
 alias vimPluginsUpdate="vim +PluginInstall +qall"
 alias termcolors='vim ~/.config/base16-shell/base16-material.dark.sh'
 alias vimcolors='vim ~/.vim/colors/base16-material.vim'
+alias convertWslPath='python3 ~/repos/dotfiles/wsl/wslPathConverter.py'
 alias :q='exit'
 alias :w='echo This is not vim'
 alias open='cmd.exe /C start'
@@ -63,8 +64,8 @@ function vscode (){
 cd
 
 if [ "$TMUX" = "" ]; then
-  tmux new-session -s "tmuxsession" -n emacs -d "emacs --daemon"
-  tmux new-window -t "tmuxsession" zsh
+  tmux new-session -s "tmuxsession" -n shell -d "zsh"
+  tmux new-window -t "tmuxsession" -n emacs -d "emacs --daemon"
   tmux select-window -t "tmuxsession"
   tmux -2 attach-session -t "tmuxsession"
 fi
