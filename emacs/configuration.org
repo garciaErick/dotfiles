@@ -419,7 +419,7 @@ Just some general settings as setting the org-templates, agenda files, and refil
   (use-package helm-swoop
     :ensure t
     :config
-    (define-key evil-normal-state-map (kbd "/") 'helm-swoop)
+    (define-key evil-normal-state-map (kbd "/") 'helm-swoop-without-pre-input)
     (define-key evil-motion-state-map (kbd "M-i") 'helm-swoop-from-evil-search)
     )
 
