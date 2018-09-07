@@ -5,7 +5,14 @@ zshDir=$cwd/zsh
 vimDir=$cwd/vim
 tmuxDir=$cwd/tmux
 emacsDir=$cwd/emacs
+windowsUser=$(sed -e 's/\r$//' <<< $(cmd.exe /C echo %USERNAME%))
+startupProgramsDir="/mnt/c/Users/$windowsUser/AppData/Roaming/Microsoft/Windows/Start Menu/Programs/Startup/"
+autoHotkeyShortcut="/mnt/c/ProgramData/Microsoft/Windows/Start Menu/Programs/AutoHotkey/AutoHotkey.lnk"
 use_proxy=true
+wget_args=""
+if [ "$use_proxy" = true ] ; then
+	wget_args="-e use_proxy=yes -e https_proxy=http://web-proxy.houston.hpecorp.net:8080"
+fi
 
 # echo "Installing required packages"
 # cd ubuntu_packages
@@ -55,19 +62,33 @@ use_proxy=true
 # cd ~/.vim/bundle/YouCompleteMe
 # ./install.py --clang-completer
 
-echo "Setting up Emacs configuration"
-ln -sf $emacsDir ~/.emacs.d
-mkdir -p ~/.emacs.d/auto-save
-echo "Done \n"
+# echo "Setting up Emacs configuration"
+# ln -sf $emacsDir ~/.emacs.d
+# mkdir -p ~/.emacs.d/auto-save
+# echo "Done \n"
 
-echo "Downloading Firacode fonts for windows"
-wget_args=""
-if [ "$use_proxy" = true ] ; then
-	wget_args="-e use_proxy=yes -e https_proxy=http://web-proxy.houston.hpecorp.net:8080"
-fi
-wget https://github.com/tonsky/FiraCode/raw/master/distr/ttf/FiraCode-Bold.ttf $wget_args
-wget https://github.com/tonsky/FiraCode/raw/master/distr/ttf/FiraCode-Light.ttf $wget_args
-wget https://github.com/tonsky/FiraCode/raw/master/distr/ttf/FiraCode-Medium.ttf $wget_args
-wget https://github.com/tonsky/FiraCode/raw/master/distr/ttf/FiraCode-Regular.ttf $wget_args
-wget https://github.com/tonsky/FiraCode/raw/master/distr/ttf/FiraCode-Retina.ttf $wget_args
-echo "Done \n"
+# echo "Downloading Firacode fonts for Windows"
+# wget https://github.com/tonsky/FiraCode/raw/master/distr/ttf/FiraCode-Bold.ttf $wget_args
+# wget https://github.com/tonsky/FiraCode/raw/master/distr/ttf/FiraCode-Light.ttf $wget_args
+# wget https://github.com/tonsky/FiraCode/raw/master/distr/ttf/FiraCode-Medium.ttf $wget_args
+# wget https://github.com/tonsky/FiraCode/raw/master/distr/ttf/FiraCode-Regular.ttf $wget_args
+# wget https://github.com/tonsky/FiraCode/raw/master/distr/ttf/FiraCode-Retina.ttf $wget_args
+# echo "Done \n"
+
+
+echo "Downloading Autohotkey for Windows"
+wget https://www.autohotkey.com/download/ahk-install.exe $wget_args
+cmd.exe /C ahk-install.exe /S
+cp windows/AutoHotkey.ahk /mnt/c/Users/$windowsUser/Documents/
+cp "$autoHotkeyShortcut" "$startupProgramsDir"
+cd "$startupProgramsDir"
+cmd.exe /C AutoHotkey.lnk &
+
+# Replace in bash
+# #!/bin/bash
+# if [[ "$1" =~ :\\ ]]; then
+# 	path=$(sed -e "s/C:\\\/\/mnt\/c\//" -e "s/\\\/\//g" <<< "$1")
+# else
+# 	path=$(sed -e "s/\/mnt\/c\//C:\\\/" -e "s/\//\\\/g" <<< "$1")
+# fi
+# echo $path
