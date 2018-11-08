@@ -1,5 +1,7 @@
- export ZSH=~/.oh-my-zsh
+export ZSH=~/.oh-my-zsh
 export LS_COLORS='ow=01;36;40'
+export http_proxy='http://web-proxy.houston.hpecorp.net:8080'
+export https_proxy='http://web-proxy.houston.hpecorp.net:8080'
 
 export winUser=$(cmd.exe /c echo %USERNAME%)
 
@@ -39,6 +41,10 @@ alias convertWslPath='python3 ~/repos/dotfiles/wsl/wslPathConverter.py'
 alias :q='exit'
 alias :w='echo This is not vim'
 alias open='cmd.exe /C start'
+
+getPass() {
+				lpass show -p $1 | clip.exe
+}
 
 #For git log
 alias gitlog='git log --all --color --graph --pretty=format:"%C(yellow)%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" --abbrev-commit'

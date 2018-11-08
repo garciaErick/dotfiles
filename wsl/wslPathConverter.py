@@ -1,16 +1,19 @@
 import sys
+import os
+from signal import signal, SIGPIPE, SIG_DFL
+signal(SIGPIPE,SIG_DFL)
 
 # C:\some\win\path
 def convertToWslPath(winPath):
     winPath = winPath.replace("C:\\", "/mnt/c/")
     wslPath = winPath.replace("\\", "/")
-    print(wslPath)
+    print(wslPath.rstrip())
 
 # /mnt/c/some/wsl/path
 def convertToWinPath(wslPath):
     wslPath = wslPath.replace("/mnt/c/", "C:\\")
     winPath = wslPath.replace("/", "\\")
-    print(winPath)
+    print(winPath.rstrip())
 
 
 def main():
