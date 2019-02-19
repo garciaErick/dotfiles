@@ -1,9 +1,9 @@
 export ZSH=~/.oh-my-zsh
 export LS_COLORS='ow=01;36;40'
-export http_proxy='http://web-proxy.houston.hpecorp.net:8080'
-export https_proxy='http://web-proxy.houston.hpecorp.net:8080'
+#export http_proxy='http://web-proxy.houston.hpecorp.net:8080'
+#export https_proxy='http://web-proxy.houston.hpecorp.net:8080'
 
-export winUser=$(cmd.exe /c echo %USERNAME%)
+#export winUser=$(cmd.exe /c echo %USERNAME%)
 
 plugins=(git)
 

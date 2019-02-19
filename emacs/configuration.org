@@ -73,10 +73,10 @@ I like to use tabs that are 2 spaces in width
 ** Proxy
 Some proxy settings to be used when needed, comment out if no proxy is needed
 #+BEGIN_SRC emacs-lisp
-(setq url-proxy-services
- '(("no_proxy" . "^\\(localhost\\|10\\..*\\|192\\.168\\..*\\)")
-   ("http" . "web-proxy.houston.hpecorp.net:8080")
-   ))
+;;(setq url-proxy-services
+;; '(("no_proxy" . "^\\(localhost\\|10\\..*\\|192\\.168\\..*\\)")
+;;   ("http" . "web-proxy.houston.hpecorp.net:8080")
+;;   ))
 #+END_SRC
 
 ** Melpa

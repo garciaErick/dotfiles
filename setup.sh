@@ -42,7 +42,6 @@ echo "Done \n"
 
 echo "Setting up Zsh configuration"
 ln -sf $zshDir/zshrc ~/.zshrc
-source ~/.zshrc
 echo "Done \n"
 
 echo "Setting up Vim configuration"
@@ -68,22 +67,15 @@ ln -sf $emacsDir ~/.emacs.d
 mkdir -p ~/.emacs.d/auto-save
 echo "Done \n"
 
-echo "Downloading Firacode fonts for Windows"
-wget https://github.com/tonsky/FiraCode/raw/master/distr/ttf/FiraCode-Bold.ttf  .
-wget https://github.com/tonsky/FiraCode/raw/master/distr/ttf/FiraCode-Light.ttf .
-wget https://github.com/tonsky/FiraCode/raw/master/distr/ttf/FiraCode-Medium.ttf .
-wget https://github.com/tonsky/FiraCode/raw/master/distr/ttf/FiraCode-Regular.ttf . 
-wget https://github.com/tonsky/FiraCode/raw/master/distr/ttf/FiraCode-Retina.ttf .
-echo "Done \n"
+#echo "Downloading Firacode fonts for Windows"
+#wget https://github.com/tonsky/FiraCode/raw/master/distr/ttf/FiraCode-Bold.ttf  .
+#wget https://github.com/tonsky/FiraCode/raw/master/distr/ttf/FiraCode-Light.ttf .
+#wget https://github.com/tonsky/FiraCode/raw/master/distr/ttf/FiraCode-Medium.ttf .
+#wget https://github.com/tonsky/FiraCode/raw/master/distr/ttf/FiraCode-Regular.ttf .
+#wget https://github.com/tonsky/FiraCode/raw/master/distr/ttf/FiraCode-Retina.ttf .
+#echo "Done \n"
 
-
-echo "Downloading Autohotkey for Windows"
-wget https://www.autohotkey.com/download/ahk-install.exe .
-cmd.exe /C ahk-install.exe /S
-cp windows/AutoHotkey.ahk /mnt/c/Users/$windowsUser/Documents/
-cp "$autoHotkeyShortcut" "$startupProgramsDir"
-cd "$startupProgramsDir"
-cmd.exe /C AutoHotkey.lnk &
+source ~/.zshrc
 
 # Replace in bash
 # #!/bin/bash
