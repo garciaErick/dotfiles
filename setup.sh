@@ -9,11 +9,11 @@ windowsUser=$(sed -e 's/\r$//' <<< $(cmd.exe /C echo %USERNAME%))
 startupProgramsDir="/mnt/c/Users/$windowsUser/AppData/Roaming/Microsoft/Windows/Start Menu/Programs/Startup/"
 autoHotkeyShortcut="/mnt/c/ProgramData/Microsoft/Windows/Start Menu/Programs/AutoHotkey/AutoHotkey.lnk"
 use_proxy=true
-wget_args=""
-if [ "$use_proxy" = true ] ; then
-	wget_args="-e use_proxy=yes -e https_proxy=http://web-proxy.houston.hpecorp.net:8080"
-	sudo cp proxy_settings/* /etc/apt/apt.conf.d/.
-fi
+#wget_args=""
+#if [ "$use_proxy" = true ] ; then
+#	wget_args="-e use_proxy=yes -e https_proxy=http://web-proxy.houston.hpecorp.net:8080"
+#	sudo cp proxy_settings/* /etc/apt/apt.conf.d/.
+#fi
 
 echo "Installing required packages"
 cd ubuntu_packages
@@ -69,16 +69,16 @@ mkdir -p ~/.emacs.d/auto-save
 echo "Done \n"
 
 echo "Downloading Firacode fonts for Windows"
-wget https://github.com/tonsky/FiraCode/raw/master/distr/ttf/FiraCode-Bold.ttf $wget_args .
-wget https://github.com/tonsky/FiraCode/raw/master/distr/ttf/FiraCode-Light.ttf $wget_args .
-wget https://github.com/tonsky/FiraCode/raw/master/distr/ttf/FiraCode-Medium.ttf $wget_args .
-wget https://github.com/tonsky/FiraCode/raw/master/distr/ttf/FiraCode-Regular.ttf $wget_args .
-wget https://github.com/tonsky/FiraCode/raw/master/distr/ttf/FiraCode-Retina.ttf $wget_args .
+wget https://github.com/tonsky/FiraCode/raw/master/distr/ttf/FiraCode-Bold.ttf  .
+wget https://github.com/tonsky/FiraCode/raw/master/distr/ttf/FiraCode-Light.ttf .
+wget https://github.com/tonsky/FiraCode/raw/master/distr/ttf/FiraCode-Medium.ttf .
+wget https://github.com/tonsky/FiraCode/raw/master/distr/ttf/FiraCode-Regular.ttf . 
+wget https://github.com/tonsky/FiraCode/raw/master/distr/ttf/FiraCode-Retina.ttf .
 echo "Done \n"
 
 
 echo "Downloading Autohotkey for Windows"
-wget https://www.autohotkey.com/download/ahk-install.exe $wget_args .
+wget https://www.autohotkey.com/download/ahk-install.exe .
 cmd.exe /C ahk-install.exe /S
 cp windows/AutoHotkey.ahk /mnt/c/Users/$windowsUser/Documents/
 cp "$autoHotkeyShortcut" "$startupProgramsDir"
