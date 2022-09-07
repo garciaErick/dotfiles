@@ -2,8 +2,6 @@
 -- THe plugin name is github user or organization name/reponame
 
 return {
-  ["goolord/alpha-nvim"] = { disable = false, },
-  
   ["neovim/nvim-lspconfig"] = {
       config = function()
         require "plugins.configs.lspconfig"

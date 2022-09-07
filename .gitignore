@@ -4,3 +4,4 @@ emacs/*
 !emacs/sensible-defaults.el
 !emacs/init.el
 tmux/tmux
+*.DS_Store*

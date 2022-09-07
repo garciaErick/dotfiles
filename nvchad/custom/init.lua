@@ -43,3 +43,7 @@ local config = {
 
 jdtls.start_or_attach(config)
 
+vim.cmd("set autoread")
+vim.cmd("au CursorHold * checktime")
+
+
