@@ -99,11 +99,3 @@ gitSquashN () {
 # Nvm
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-
-## Notes
-# For integ testing: Unmark generated-src and mark both src and model_index_cache in the private folder as generated source files
-# bb release
-# bb boostrap
-# brazil-build cdk deploy EnvironmentModellingCrossAccountStack-alpha
-
-########https://nvchad.com/config/Mappings
