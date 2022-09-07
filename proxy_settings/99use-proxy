@@ -1,2 +1,0 @@
-Acquire::http::proxy "http://web-proxy.houston.hpecorp.net:8080";
-Acquire::https::proxy "https://web-proxy.houston.hpecorp.net:8080";
