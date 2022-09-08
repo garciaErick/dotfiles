@@ -1,5 +1,5 @@
 #!/bin/bash
 
-source ohmyzsh/config
-source core/main
-source amazon/main
+source ~/.config/zshrc/ohmyzsh/config
+source ~/.config/zshrc/core/main
+source ~/.config/zshrc/amazon/main

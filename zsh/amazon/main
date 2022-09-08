@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # Amazon
-source config/exports
-source config/aliases
-source config/functions
+source "$(dirname "$0")/config/exports"
+source "$(dirname "$0")/config/aliases"
+source "$(dirname "$0")/config/functions"
+
