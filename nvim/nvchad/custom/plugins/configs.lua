@@ -52,7 +52,7 @@ M.nvimTree = {
 		side = "right",
 		width = 20,
 	},
-	filters = { custom = { "^.git$" } },
+  filters = { custom = { "^.git$" } }
 }
 
 M.alpha = {

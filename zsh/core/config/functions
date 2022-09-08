@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# Functions 
+function cd {
+        builtin cd "$@" && ls -la
+}
+
+gitSquashN () {
+  git rebase -i HEAD~$1
+}

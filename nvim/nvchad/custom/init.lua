@@ -1,3 +1,7 @@
+vim.cmd("set autoread")
+vim.cmd("au CursorHold * checktime")
+vim.cmd("set relativenumber")
+
 local jdtls = require("jdtls")
 local on_attach = require("lspconfig").on_attach -- change to yours
 
@@ -32,5 +36,3 @@ local config = {
 
 jdtls.start_or_attach(config)
 
-vim.cmd("set autoread")
-vim.cmd("au CursorHold * checktime")

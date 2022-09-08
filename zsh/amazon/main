@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# Amazon
+source config/exports
+source config/aliases
+source config/functions

@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# EDA
+export EDA_AUTO="$HOME/.config/eda/completion"
+mkdir -p $EDA_AUTO
+eda completions zsh > $EDA_AUTO/_eda
+fpath=($EDA_AUTO $fpath)
+autoload -Uz compinit
+compinit
+alias edab='eda build -ct brazil-build'
+
+## Brazil
+alias bb="brazil-build"
+alias bbWs='brazil ws'
+alias bbWsCreate='bbWs create -n'
+alias ssoAuth="mwinit -s; kinit"
+alias bbSetupPlatform="brazil setup platform-support"
+alias bbRecursive="brazil-recursive-cmd brazil-build"
+alias bbUsePackage='bbWs use -p'
+alias bbSync-md='brazil ws sync --md'
+alias bbSync-packages='brazil ws sync'
+alias brc="brazil-recursive-cmd --all 'echo ==================================================; pwd; git status;'"

@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# Aliases
+alias vim="nvim"
+alias vimrc="cd ~/.config/nvim/lua/custom/ && vim init.lua"
+alias zshrc="vim ~/.zshrc && source ~/.zshrc"
+alias cat="bat"
+alias ohmyzshrc="vim  ~/.oh-my-zsh"
+alias ..='cd ..'
+alias ls='ls -la --color=auto'
+alias gpr='git pull --rebase'
+alias gca='git commit --amend'
+alias :q='exit'
+alias grepR='grep --exclude-dir="node_modules" -winr'
+alias python='/usr/bin/python3'
+alias gitUnstage='git restore --staged' # path/to/file
+alias gitResetFile='git restore'

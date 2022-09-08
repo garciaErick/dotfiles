@@ -1,0 +1,8 @@
+#!/bin/bash
+
+if [ "$TMUX" = "" ]; then
+  tmux new-session -s "tmuxsession" -n shell -d "zsh"
+  tmux new-window -t "tmuxsession" -n emacs -d "emacs --daemon"
+  tmux select-window -t "tmuxsession"
+  tmux -2 attach-session -t "tmuxsession"
+fi
