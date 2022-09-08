@@ -1,5 +1,6 @@
 # My Dotfiles #
 WIP
+
 These are the dotfiles needed for restoring or sharing my configurations
 
 #### i3-Gaps Window Manager ####
