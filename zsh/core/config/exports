@@ -1,5 +1,13 @@
 #!/bin/bash
 
+# PATH
+# export JAVA_HOME="/path/to/java/home"
+export PATH=/usr/local/bin:$PATH
+# JDTLS lsp for java 
+export PATH=/Users/gazeric/Downloads/jdt-language-server-1.9.0-202203031534/bin:$PATH
+# To detect a Python environment when you only have python3 installed
+export PATH="/usr/local/opt/python@3.10/libexec/bin:$PATH"
+
 # Nvm
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
