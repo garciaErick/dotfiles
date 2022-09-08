@@ -1,7 +1,0 @@
-#!/bin/bash
-
-# Amazon
-source "$(dirname "$0")/config/exports"
-source "$(dirname "$0")/config/aliases"
-source "$(dirname "$0")/config/functions"
-
